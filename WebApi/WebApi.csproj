@@ -7,15 +7,14 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Models\DataTransferObjects\" />
-    <Folder Include="Repositories\Implementations\" />
     <Folder Include="Services\Interfaces\" />
     <Folder Include="Services\Implementations\" />
-    <Folder Include="UnitsOfWork\Implementations\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
   </ItemGroup>
 
 </Project>
