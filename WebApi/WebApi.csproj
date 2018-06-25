@@ -7,6 +7,10 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Models\DataTransferObjects\" />
+    <Folder Include="Repositories\Implementations\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Services\Implementations\" />
+    <Folder Include="UnitsOfWork\Implementations\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
