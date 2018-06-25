@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebApi.Data.EntityConfigurations;
 
 namespace WebApi.Data
 {
@@ -6,12 +7,11 @@ namespace WebApi.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
     }
 }
