@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\DataTransferObjects\" />
+    <Folder Include="Models\Entities\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
