@@ -1,4 +1,4 @@
-﻿namespace WebApi.Exceptions.User
+﻿namespace WebApi.Exceptions
 {
     public class UserNotFoundException : ResourceNotFoundException
     {

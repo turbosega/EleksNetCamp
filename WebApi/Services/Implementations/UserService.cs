@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using WebApi.Exceptions.User;
+using WebApi.Exceptions;
 using WebApi.Models.DataTransferObjects;
 using WebApi.Models.Entities;
 using WebApi.Services.Interfaces;
@@ -13,15 +11,13 @@ namespace WebApi.Services.Implementations
 {
     public class UserService : IUserService
     {
-        private readonly IUnitOfWork           _unitOfWork;
-        private readonly IMapper               _mapper;
-        private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper     _mapper;
 
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IPasswordHasher<User> passwordHasher)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _unitOfWork     = unitOfWork;
-            _mapper         = mapper;
-            _passwordHasher = passwordHasher;
+            _unitOfWork = unitOfWork;
+            _mapper     = mapper;
         }
 
         public async Task<User> GetUserByIdAsync(int id)
@@ -50,7 +46,7 @@ namespace WebApi.Services.Implementations
             return userForSaving;
         }
 
-        // private methods - provided data validation etc.
+        // private methods
         private async Task<bool> IsUserWithThisLoginExists(string providedLogin) => await _unitOfWork.Users.GetByLoginAsync(providedLogin) != null;
 
         private User MapFromDtoToUser(UserDto userDto) => _mapper.Map<User>(userDto);
