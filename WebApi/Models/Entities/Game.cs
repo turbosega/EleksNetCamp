@@ -8,5 +8,7 @@ namespace WebApi.Models.Entities
         public string Title { get; set; }
 
         public virtual IEnumerable<Score> Scores { get; set; }
+
+        public Game() => Scores = new List<Score>();
     }
 }
