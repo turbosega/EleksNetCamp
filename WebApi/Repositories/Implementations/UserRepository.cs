@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Data;
@@ -16,7 +17,7 @@ namespace WebApi.Repositories.Implementations
         public async Task<User> GetByIdAsync(int id) => await _db.Users.FindAsync(id);
 
         public async Task<User> GetByLoginAsync(string providedLogin) =>
-            await _db.Users.FirstOrDefaultAsync(user => user.Login == providedLogin);
+            await _db.Users.FirstOrDefaultAsync(user => string.Equals(user.Login, providedLogin, StringComparison.OrdinalIgnoreCase));
 
         public async Task<IEnumerable<User>> GetAllAsync() => await _db.Users.ToListAsync();
 

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models.DataTransferObjects;
@@ -14,6 +15,14 @@ namespace WebApi.Controllers
         private readonly IUserService _userService;
 
         public UserController(IUserService userService) => _userService = userService;
+
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public async Task<User> GetUserByIdAsync(int id) => await _userService.GetUserByIdAsync(id);
+
+        [HttpGet("all")]
+        [AllowAnonymous]
+        public async Task<IEnumerable<User>> GetAllUsersAsync() => await _userService.GetAllUsersAsync();
 
         [HttpPost("rgstr")]
         [AllowAnonymous]
