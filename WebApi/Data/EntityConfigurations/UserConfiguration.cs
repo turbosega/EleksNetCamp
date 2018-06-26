@@ -17,6 +17,9 @@ namespace WebApi.Data.EntityConfigurations
                 .HasMaxLength(20)
                 .IsRequired();
 
+            user.HasMany(u => u.Scores)
+                .WithOne(score => score.User);
+
             user.Property(u => u.PasswordHash)
                 .IsRequired();
         }

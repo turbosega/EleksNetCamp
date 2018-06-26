@@ -18,6 +18,7 @@ namespace WebApi.Models.DataTransferObjects
 
         [Required]
         [MinLength(8)]
+        [DataType(DataType.Password)]
         [Display(Name = "password")]
         public string Password { get; set; }
     }
