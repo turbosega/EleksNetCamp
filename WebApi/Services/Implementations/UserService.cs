@@ -37,7 +37,7 @@ namespace WebApi.Services.Implementations
         {
             if (await IsUserWithThisLoginExists(userDto.Login))
             {
-                throw new LoginIsTakenException($"User with login: {userDto.Login} already exists");
+                return null;
             }
 
             var userForSaving = MapFromDtoToUser(userDto);

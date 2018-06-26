@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Exceptions;
+using WebApi.Filters.Action;
 using WebApi.Models.DataTransferObjects;
 using WebApi.Services.Interfaces;
 
@@ -16,6 +18,22 @@ namespace WebApi.Controllers
         public AccountController(IAccountService accountService) => _accountService = accountService;
 
         [HttpPost("login")]
-        public async Task<string> LoginAsync(UserDto userDto) => await _accountService.AuthenticateAsync(userDto);
+        [ValidateModel]
+        public async Task<IActionResult> LoginAsync(UserDto userDto)
+        {
+            try
+            {
+                var token = await _accountService.AuthenticateAsync(userDto);
+                return Ok(new
+                {
+                    userDto.Login,
+                    token
+                });
+            }
+            catch (BadCredentialsException e)
+            {
+                return Unauthorized();
+            }
+        }
     }
 }

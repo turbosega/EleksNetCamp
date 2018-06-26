@@ -57,7 +57,7 @@ namespace WebApi
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IAccountService, AuthService>();
+            services.AddScoped<IAccountService, AccountService>();
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

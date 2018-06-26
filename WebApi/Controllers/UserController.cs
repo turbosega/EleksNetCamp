@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Filters.Action;
 using WebApi.Models.DataTransferObjects;
-using WebApi.Models.Entities;
 using WebApi.Services.Interfaces;
 
 namespace WebApi.Controllers
@@ -18,14 +17,34 @@ namespace WebApi.Controllers
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<User> GetUserByIdAsync(int id) => await _userService.GetUserByIdAsync(id);
+        [ValidateModel]
+        public async Task<IActionResult> GetUserByIdAsync(int id)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
 
         [HttpGet("all")]
         [AllowAnonymous]
-        public async Task<IEnumerable<User>> GetAllUsersAsync() => await _userService.GetAllUsersAsync();
+        public async Task<IActionResult> GetAllUsersAsync() => Ok(await _userService.GetAllUsersAsync());
 
         [HttpPost("rgstr")]
         [AllowAnonymous]
-        public async Task<User> CreateUserAsync(UserDto userDto) => await _userService.CreateUserAsync(userDto);
+        [ValidateModel]
+        public async Task<IActionResult> CreateUserAsync(UserDto userDto)
+        {
+            var savedUser = await _userService.CreateUserAsync(userDto);
+            if (savedUser == null)
+            {
+                return UnprocessableEntity();
+            }
+
+            return Ok(savedUser);
+        }
     }
 }
