@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using WebApi.Data;
+using WebApi.Helpers;
 using WebApi.Models.Entities;
 using WebApi.Repositories.Implementations;
 using WebApi.Repositories.Interfaces;
@@ -30,6 +32,7 @@ namespace WebApi
         {
             // services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseInMemoryDatabase());
+            services.Configure<JwtSettings>(Configuration.GetSection("JWT"));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                      {
@@ -41,18 +44,20 @@ namespace WebApi
 
                          options.TokenValidationParameters = new TokenValidationParameters
                          {
-                             ValidIssuer      = jwtSection["Issuer"],
-                             ValidAudience    = jwtSection["Audience"],
-                             ValidateIssuer   = false,
-                             ValidateAudience = false,
-                             ValidateLifetime = true,
-                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection["Key"]))
+                             ValidIssuer              = jwtSection["Issuer"],
+                             ValidAudience            = jwtSection["Audience"],
+                             ValidateIssuer           = true,
+                             ValidateAudience         = true,
+                             ValidateLifetime         = true,
+                             ValidateIssuerSigningKey = true,
+                             ClockSkew                = TimeSpan.FromMinutes(5),
+                             IssuerSigningKey         = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection["Key"]))
                          };
                      });
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAccountService, AuthService>();
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

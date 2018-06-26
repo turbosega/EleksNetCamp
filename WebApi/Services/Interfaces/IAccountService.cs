@@ -3,7 +3,7 @@ using WebApi.Models.DataTransferObjects;
 
 namespace WebApi.Services.Interfaces
 {
-    public interface IAuthService
+    public interface IAccountService
     {
         Task<string> AuthenticateAsync(UserDto userDto);
     }

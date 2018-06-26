@@ -1,12 +1,11 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
 using WebApi.Exceptions;
+using WebApi.Helpers;
 using WebApi.Models.DataTransferObjects;
 using WebApi.Models.Entities;
 using WebApi.Services.Interfaces;
@@ -14,16 +13,16 @@ using WebApi.UnitsOfWork.Interfaces;
 
 namespace WebApi.Services.Implementations
 {
-    public class AuthService : IAuthService
+    public class AccountService : IAccountService
     {
         private readonly IUnitOfWork           _unitOfWork;
-        private readonly IConfiguration        _config;
+        private readonly JwtSettings           _jwtSettings;
         private readonly IPasswordHasher<User> _passwordHasher;
 
-        public AuthService(IUnitOfWork unitOfWork, IConfiguration configuration, IPasswordHasher<User> passwordHasher)
+        public AccountService(IUnitOfWork unitOfWork, IOptions<JwtSettings> jwtSettings, IPasswordHasher<User> passwordHasher)
         {
             _unitOfWork     = unitOfWork;
-            _config         = configuration;
+            _jwtSettings    = jwtSettings.Value;
             _passwordHasher = passwordHasher;
         }
 
@@ -49,20 +48,17 @@ namespace WebApi.Services.Implementations
 
         private string BuildToken(User user)
         {
-            var jwtSection  = _config.GetSection("JWT");
-            var key         = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection["Key"]));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
                 new Claim("id", user.Id.ToString()),
                 new Claim("login", user.Login)
             };
-            var token = new JwtSecurityToken(issuer: jwtSection["Issuer"],
-                                             audience: jwtSection["Audience"],
+            var token = new JwtSecurityToken(issuer: _jwtSettings.Issuer,
+                                             audience: _jwtSettings.Audience,
                                              claims: claims,
                                              notBefore: DateTime.Now,
                                              expires: DateTime.Now.AddDays(1),
-                                             signingCredentials: credentials);
+                                             signingCredentials: _jwtSettings.SigningCredentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
