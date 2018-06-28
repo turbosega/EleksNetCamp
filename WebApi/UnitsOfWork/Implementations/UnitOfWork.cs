@@ -9,12 +9,17 @@ namespace WebApi.UnitsOfWork.Implementations
     {
         private readonly AppDbContext _db;
 
-        public IUserRepository Users { get; }
+        public IUserRepository  Users  { get; }
+        public IGameRepository  Games  { get; }
+        public IScoreRepository Scores { get; }
 
-        public UnitOfWork(AppDbContext dbContext, IUserRepository userRepository)
+        public UnitOfWork(AppDbContext dbContext,
+                          IUserRepository userRepository, IGameRepository gameRepository, IScoreRepository scoreRepository)
         {
-            _db   = dbContext;
-            Users = userRepository;
+            _db    = dbContext;
+            Users  = userRepository;
+            Games  = gameRepository;
+            Scores = scoreRepository;
         }
 
         public async Task SaveChangesAsync() => await _db.SaveChangesAsync();

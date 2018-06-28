@@ -20,20 +20,20 @@ namespace WebApi.Services.Implementations
             _mapper     = mapper;
         }
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<User> GetByIdAsync(int id)
         {
             var user = await _unitOfWork.Users.GetByIdAsync(id);
             if (user == null)
             {
-                throw new UserNotFoundException($"User with id: {id} not found");
+                throw new ResourceNotFoundException($"User with id: {id} not found");
             }
 
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersAsync() => await _unitOfWork.Users.GetAllAsync();
+        public async Task<IEnumerable<User>> GetAllAsync() => await _unitOfWork.Users.GetAllAsync();
 
-        public async Task<User> CreateUserAsync(UserDto userDto)
+        public async Task<User> CreateAsync(UserDto userDto)
         {
             if (await IsUserWithThisLoginExists(userDto.Login))
             {

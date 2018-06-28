@@ -19,7 +19,7 @@ namespace WebApi.Controllers
 
         [HttpPost("login")]
         [ValidateModel]
-        public async Task<IActionResult> LoginAsync(UserDto userDto)
+        public async Task<IActionResult> LoginAsync([FromBody] UserDto userDto)
         {
             try
             {

@@ -11,8 +11,14 @@ namespace WebApi.Models.Entities
         [JsonIgnore]
         public string PasswordHash { get; set; }
 
-        public virtual IEnumerable<Score> Scores { get; set; }
+        private IEnumerable<Score> _scores;
 
-        public User() => Scores = new List<Score>();
+        public virtual IEnumerable<Score> Scores
+        {
+            get => _scores;
+            set => _scores = value;
+        }
+
+        public User() => _scores = new List<Score>();
     }
 }

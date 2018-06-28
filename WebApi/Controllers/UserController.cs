@@ -17,10 +17,9 @@ namespace WebApi.Controllers
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        [ValidateModel]
         public async Task<IActionResult> GetUserByIdAsync(int id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            var user = await _userService.GetByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -31,20 +30,33 @@ namespace WebApi.Controllers
 
         [HttpGet("all")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAllUsersAsync() => Ok(await _userService.GetAllUsersAsync());
+        public async Task<IActionResult> GetAllUsersAsync() => Ok(await _userService.GetAllAsync());
 
         [HttpPost("rgstr")]
         [AllowAnonymous]
         [ValidateModel]
-        public async Task<IActionResult> CreateUserAsync(UserDto userDto)
+        public async Task<IActionResult> CreateUserAsync([FromBody] UserDto userDto)
         {
-            var savedUser = await _userService.CreateUserAsync(userDto);
+            var savedUser = await _userService.CreateAsync(userDto);
             if (savedUser == null)
             {
                 return UnprocessableEntity();
             }
 
             return Ok(savedUser);
+        }
+
+        [HttpGet("{id}/scores")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetScoresByUserId(int id)
+        {
+            var user = await _userService.GetByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user.Scores);
         }
     }
 }

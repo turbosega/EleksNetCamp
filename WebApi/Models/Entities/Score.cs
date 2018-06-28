@@ -1,4 +1,6 @@
-﻿namespace WebApi.Models.Entities
+﻿using Newtonsoft.Json;
+
+namespace WebApi.Models.Entities
 {
     public class Score
     {
@@ -8,7 +10,10 @@
         public int UserId { get; set; }
         public int GameId { get; set; }
 
+        [JsonIgnore]
         public virtual User User { get; set; }
+
+        [JsonIgnore]
         public virtual Game Game { get; set; }
     }
 }

@@ -30,7 +30,8 @@ namespace WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies()
+            //                                                      .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseInMemoryDatabase());
             services.Configure<JwtSettings>(Configuration.GetSection("JWT"));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -55,12 +56,18 @@ namespace WebApi
                          };
                      });
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IGameRepository, GameRepository>();
+            services.AddScoped<IScoreRepository, ScoreRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IScoreService, ScoreService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddAutoMapper();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                    .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -74,6 +81,7 @@ namespace WebApi
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

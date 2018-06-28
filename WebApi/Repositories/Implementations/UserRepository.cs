@@ -17,9 +17,11 @@ namespace WebApi.Repositories.Implementations
         public async Task<User> GetByIdAsync(int id) => await _db.Users.FindAsync(id);
 
         public async Task<User> GetByLoginAsync(string providedLogin) =>
-            await _db.Users.FirstOrDefaultAsync(user => string.Equals(user.Login, providedLogin, StringComparison.OrdinalIgnoreCase));
+            await _db.Users
+                     .AsNoTracking()
+                     .FirstOrDefaultAsync(user => string.Equals(user.Login, providedLogin, StringComparison.OrdinalIgnoreCase));
 
-        public async Task<IEnumerable<User>> GetAllAsync() => await _db.Users.ToListAsync();
+        public async Task<IEnumerable<User>> GetAllAsync() => await _db.Users.AsNoTracking().ToListAsync();
 
         public async Task CreateAsync(User newUser) => await _db.Users.AddAsync(newUser);
     }
