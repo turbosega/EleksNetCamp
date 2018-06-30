@@ -17,11 +17,9 @@ namespace WebApi.Repositories.Implementations
         public async Task<Game> GetByIdAsync(int id) => await _db.Games.FindAsync(id);
 
         public async Task<Game> GetByTitleAsync(string providedTitle) =>
-            await _db.Games
-                     .AsNoTracking()
-                     .FirstOrDefaultAsync(game => string.Equals(game.Title, providedTitle, StringComparison.OrdinalIgnoreCase));
+            await _db.Games.FirstOrDefaultAsync(game => string.Equals(game.Title, providedTitle, StringComparison.OrdinalIgnoreCase));
 
-        public async Task<IEnumerable<Game>> GetAllAsync() => await _db.Games.AsNoTracking().ToListAsync();
+        public async Task<IEnumerable<Game>> GetAllAsync() => await _db.Games.ToListAsync();
 
         public async Task CreateAsync(Game game) => await _db.Games.AddAsync(game);
     }

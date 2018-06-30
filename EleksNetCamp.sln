@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{FCC3F2F9-7EA7-4A6D-9F87-ACF56AC778EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{FCC3F2F9-7EA7-4A6D-9F87-ACF56AC778EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{C3014A52-8B43-419D-918C-2FC03B9C9CD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FCC3F2F9-7EA7-4A6D-9F87-ACF56AC778EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCC3F2F9-7EA7-4A6D-9F87-ACF56AC778EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCC3F2F9-7EA7-4A6D-9F87-ACF56AC778EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3014A52-8B43-419D-918C-2FC03B9C9CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3014A52-8B43-419D-918C-2FC03B9C9CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3014A52-8B43-419D-918C-2FC03B9C9CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3014A52-8B43-419D-918C-2FC03B9C9CD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

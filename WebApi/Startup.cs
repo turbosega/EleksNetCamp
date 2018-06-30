@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using WebApi.Data;
+using WebApi.Extensions;
 using WebApi.Helpers;
 using WebApi.Models.Entities;
 using WebApi.Repositories.Implementations;
@@ -32,8 +33,9 @@ namespace WebApi
         {
             //services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies()
             //                                                      .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseInMemoryDatabase());
+            services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase());
             services.Configure<JwtSettings>(Configuration.GetSection("JWT"));
+            services.ConfigureCors();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                      {
@@ -81,6 +83,7 @@ namespace WebApi
                 app.UseHsts();
             }
 
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();

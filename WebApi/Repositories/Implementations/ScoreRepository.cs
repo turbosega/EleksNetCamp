@@ -15,7 +15,7 @@ namespace WebApi.Repositories.Implementations
 
         public async Task<Score> GetByIdAsync(int id) => await _db.Scores.FindAsync(id);
 
-        public async Task<IEnumerable<Score>> GetAllAsync() => await _db.Scores.AsNoTracking().ToListAsync();
+        public async Task<IEnumerable<Score>> GetAllAsync() => await _db.Scores.ToListAsync();
 
         public async Task CreateAsync(Score score) => await _db.Scores.AddAsync(score);
     }

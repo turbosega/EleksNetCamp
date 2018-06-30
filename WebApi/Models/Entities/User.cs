@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
+using WebApi.Extensions;
 
 namespace WebApi.Models.Entities
 {
@@ -13,12 +15,16 @@ namespace WebApi.Models.Entities
 
         private IEnumerable<Score> _scores;
 
-        public virtual IEnumerable<Score> Scores
+        public IEnumerable<Score> Scores
         {
-            get => _scores;
+            get => LazyLoader.Load(this, ref _scores);
             set => _scores = value;
         }
 
         public User() => _scores = new List<Score>();
+
+        private Action<object, string> LazyLoader { get; set; }
+
+        private User(Action<object, string> lazyLoader) => LazyLoader = lazyLoader;
     }
 }

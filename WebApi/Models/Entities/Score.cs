@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using WebApi.Extensions;
 
 namespace WebApi.Models.Entities
 {
@@ -10,10 +11,27 @@ namespace WebApi.Models.Entities
         public int UserId { get; set; }
         public int GameId { get; set; }
 
-        [JsonIgnore]
-        public virtual User User { get; set; }
+        private User _user;
+        private Game _game;
 
-        [JsonIgnore]
-        public virtual Game Game { get; set; }
+        public User User
+        {
+            get => LazyLoader.Load(this, ref _user);
+            set => _user = value;
+        }
+
+        public Game Game
+        {
+            get => LazyLoader.Load(this, ref _game);
+            set => _game = value;
+        }
+
+        public Score()
+        {
+        }
+
+        private Action<object, string> LazyLoader { get; set; }
+
+        private Score(Action<object, string> lazyLoader) => LazyLoader = lazyLoader;
     }
 }

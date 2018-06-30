@@ -18,7 +18,8 @@ namespace WebApi.Data.EntityConfigurations
 
             score.HasOne(s => s.User)
                  .WithMany(user => user.Scores)
-                 .HasForeignKey(s => s.UserId);
+                 .HasForeignKey(s => s.UserId)
+                 .OnDelete(DeleteBehavior.Cascade);
 
             score.HasOne(s => s.Game)
                  .WithMany(game => game.Scores)

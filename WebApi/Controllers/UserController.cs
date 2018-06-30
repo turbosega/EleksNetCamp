@@ -5,8 +5,7 @@ using WebApi.Filters.Action;
 using WebApi.Models.DataTransferObjects;
 using WebApi.Services.Interfaces;
 
-namespace WebApi.Controllers
-{
+namespace WebApi.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
