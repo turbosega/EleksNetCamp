@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
+using BusinessLogicLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Models.DataTransferObjects;
-using WebApi.Services.Interfaces;
+using Models.DataTransferObjects;
 
 namespace WebApi.Controllers
 {
@@ -16,16 +16,7 @@ namespace WebApi.Controllers
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetGameByIdAsync(int id)
-        {
-            var game = await _gameService.GetByIdAsync(id);
-            if (game == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(game);
-        }
+        public async Task<IActionResult> GetGameByIdAsync(int id) => Ok(await _gameService.GetByIdAsync(id));
 
         [HttpGet("all")]
         [AllowAnonymous]
@@ -38,7 +29,7 @@ namespace WebApi.Controllers
             var gameForSaving = await _gameService.CreateAsync(gameDto);
             if (gameForSaving == null)
             {
-                return UnprocessableEntity("Something went wrong while creating new game");
+                return UnprocessableEntity();
             }
 
             return Ok(gameForSaving);
