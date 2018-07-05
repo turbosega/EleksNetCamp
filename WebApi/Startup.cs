@@ -12,7 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using WebApi.Helpers;
 
-namespace WebApi {
+namespace WebApi
+{
     public class Startup
     {
         public IConfiguration Configuration { get; }

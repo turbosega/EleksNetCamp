@@ -33,7 +33,7 @@ namespace BusinessLogicLayer.Services.Implementations
         private async Task<User> GetUserIfCorrectCredentialsAsync(string providedLogin, string providedPassword)
         {
             var user = await _unitOfWork.Users.GetByLoginAsync(providedLogin);
-            if (user == null || !IsPasswordMatchesWithHash(user, providedPassword))
+            if (user == null || !DoesPasswordMatchWithHash(user, providedPassword))
             {
                 throw new BadCredentialsException($"Wrong login: {providedLogin} and/or password: {providedPassword}");
             }
@@ -41,7 +41,7 @@ namespace BusinessLogicLayer.Services.Implementations
             return user;
         }
 
-        private bool IsPasswordMatchesWithHash(User user, string rawPassword) =>
+        private bool DoesPasswordMatchWithHash(User user, string rawPassword) =>
             _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, rawPassword) != PasswordVerificationResult.Failed;
 
         private string BuildToken(User user)

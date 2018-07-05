@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DataTransferObjects;
 
-namespace WebApi.Controllers {
+namespace WebApi.Controllers
+{
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase

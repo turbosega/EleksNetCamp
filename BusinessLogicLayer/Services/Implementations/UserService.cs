@@ -20,16 +20,9 @@ namespace BusinessLogicLayer.Services.Implementations
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<User> GetByIdAsync(int id)
-        {
-            var user = await _unitOfWork.Users.GetByIdAsync(id);
-            if (user == null)
-            {
-                throw new ResourceNotFoundException($"User with {nameof(id)}: {id} not found");
-            }
+        public async Task<User> GetByIdAsync(int id) => await _unitOfWork.Users.GetByIdAsync(id) ??
+                                                        throw new ResourceNotFoundException($"User with {nameof(id)}: {id} not found");
 
-            return user;
-        }
 
         public async Task<IEnumerable<User>> GetAllAsync() => await _unitOfWork.Users.GetAllAsync();
 

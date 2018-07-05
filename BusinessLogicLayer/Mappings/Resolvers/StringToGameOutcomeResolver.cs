@@ -12,7 +12,7 @@ namespace BusinessLogicLayer.Mappings.Resolvers
         {
             if (!Enum.TryParse(typeof(GameOutcome), source.GameOutcome, out var parsedResult))
             {
-                return GameOutcome.Defeat;
+                throw new ArgumentException($"Can not resolve provided game outcome: {source.GameOutcome}");
             }
 
             return (GameOutcome) parsedResult;

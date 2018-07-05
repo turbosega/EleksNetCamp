@@ -20,16 +20,9 @@ namespace BusinessLogicLayer.Services.Implementations
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Game> GetByIdAsync(int id)
-        {
-            var game = await _unitOfWork.Games.GetByIdAsync(id);
-            if (game == null)
-            {
-                throw new ResourceNotFoundException($"Game with {nameof(id)}: {id} not found");
-            }
+        public async Task<Game> GetByIdAsync(int id) => await _unitOfWork.Games.GetByIdAsync(id) ??
+                                                        throw new ResourceNotFoundException($"Game with {nameof(id)}: {id} not found");
 
-            return game;
-        }
 
         public async Task<IEnumerable<Game>> GetAllAsync() => await _unitOfWork.Games.GetAllAsync();
 
