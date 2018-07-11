@@ -23,7 +23,6 @@ namespace BusinessLogicLayer.Services.Implementations
         public async Task<Result> GetByIdAsync(int id) => await _unitOfWork.Results.GetByIdAsync(id) ??
                                                           throw new ResourceNotFoundException($"Result with {nameof(id)}: {id} not found");
 
-
         public async Task<IEnumerable<Result>> GetAllAsync() => await _unitOfWork.Results.GetAllAsync();
 
         public async Task<Result> CreateAsync(ResultDto resultDto)

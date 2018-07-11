@@ -23,12 +23,11 @@ namespace BusinessLogicLayer.Services.Implementations
         public async Task<User> GetByIdAsync(int id) => await _unitOfWork.Users.GetByIdAsync(id) ??
                                                         throw new ResourceNotFoundException($"User with {nameof(id)}: {id} not found");
 
-
         public async Task<IEnumerable<User>> GetAllAsync() => await _unitOfWork.Users.GetAllAsync();
 
         public async Task<User> CreateAsync(UserDto userDto)
         {
-            if (await IsUserWithThisLoginExists(userDto.Login))
+            if (await DoesUserWithThisLoginExist(userDto.Login))
             {
                 throw new LoginIsTakenException($"User with login: {userDto.Login} already exists");
             }
@@ -39,7 +38,7 @@ namespace BusinessLogicLayer.Services.Implementations
             return userForSaving;
         }
 
-        private async Task<bool> IsUserWithThisLoginExists(string providedLogin) => await _unitOfWork.Users.GetByLoginAsync(providedLogin) != null;
+        private async Task<bool> DoesUserWithThisLoginExist(string providedLogin) => await _unitOfWork.Users.GetByLoginAsync(providedLogin) != null;
 
         private User MapFromDtoToUser(UserDto userDto) => _mapper.Map<User>(userDto);
     }

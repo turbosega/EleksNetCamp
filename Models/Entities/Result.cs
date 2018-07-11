@@ -1,13 +1,14 @@
 ﻿using System;
-using Models.Enumerations;
 
 namespace Models.Entities
 {
     public class Result
     {
-        public int         Id          { get; set; }
-        public GameOutcome GameOutcome { get; set; }
-        public DateTime    DateTime    { get; set; }
+        public int Id    { get; set; }
+        public int Score { get; set; }
+
+        //[JsonIgnore]
+        public DateTime DateTime { get; set; } = DateTime.Now;
 
         public int UserId { get; set; }
         public int GameId { get; set; }

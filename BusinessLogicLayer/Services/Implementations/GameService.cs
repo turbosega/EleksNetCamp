@@ -28,7 +28,7 @@ namespace BusinessLogicLayer.Services.Implementations
 
         public async Task<Game> CreateAsync(GameDto gameDto)
         {
-            if (await IsGameWithThisTitleExists(gameDto.Title))
+            if (await DoesGameWithThisTitleExist(gameDto.Title))
             {
                 return null;
             }
@@ -39,7 +39,7 @@ namespace BusinessLogicLayer.Services.Implementations
             return gameForSaving;
         }
 
-        private async Task<bool> IsGameWithThisTitleExists(string providedTitle) => await _unitOfWork.Games.GetByTitleAsync(providedTitle) != null;
+        private async Task<bool> DoesGameWithThisTitleExist(string providedTitle) => await _unitOfWork.Games.GetByTitleAsync(providedTitle) != null;
 
         private Game MapFromDtoToGame(GameDto gameDto) => _mapper.Map<Game>(gameDto);
     }

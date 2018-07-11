@@ -17,7 +17,7 @@ namespace BusinessLogicLayer.Mappings
 
             CreateMap<ResultDto, Result>().ForMember(result => result.UserId, dto => dto.MapFrom(from => from.UserId))
                                           .ForMember(result => result.GameId, dto => dto.MapFrom(from => from.GameId))
-                                          .ForMember(result => result.GameOutcome, dto => dto.ResolveUsing<StringToGameOutcomeResolver>());
+                                          .ForMember(result => result.Score, dto => dto.MapFrom(from => from.Score));
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Models.DataTransferObjects
         public int GameId { get; set; }
 
         [Required]
-        [Display(Name = "gameOutcome")]
-        public string GameOutcome { get; set; }
+        [Display(Name = "score")]
+        public int Score { get; set; }
     }
 }

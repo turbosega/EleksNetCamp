@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models.Entities;
-using Models.Enumerations;
 
 namespace DataAccessLayer.EntitiesConfigurations
 {
@@ -18,10 +16,8 @@ namespace DataAccessLayer.EntitiesConfigurations
                 r.GameId
             });
 
-            result.Property(r => r.GameOutcome)
-                  .HasConversion(outcome => outcome.ToString(),
-                                 outcome => (GameOutcome) Enum.Parse(typeof(GameOutcome), outcome))
-                  .HasMaxLength(20);
+            result.Property(r => r.Score)
+                  .IsRequired();
 
             result.Property(r => r.DateTime)
                   .HasColumnType("datetime")
