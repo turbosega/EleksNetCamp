@@ -16,7 +16,6 @@ namespace DataAccessLayer.EntitiesConfigurations
                 .IsUnique();
 
             user.Property(u => u.Login)
-                .IsConcurrencyToken()
                 .HasMaxLength(20)
                 .IsRequired();
 

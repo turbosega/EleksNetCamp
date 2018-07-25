@@ -14,7 +14,6 @@ namespace DataAccessLayer.EntitiesConfigurations
                 .IsUnique();
 
             game.Property(g => g.Title)
-                .IsConcurrencyToken()
                 .HasMaxLength(50)
                 .IsRequired();
 
