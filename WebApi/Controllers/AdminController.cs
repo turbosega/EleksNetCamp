@@ -5,7 +5,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize("AdministratorsOnly")]
+    [Authorize(Policy = "AdministratorsOnly")]
     public class AdminController : ControllerBase
     {
     }

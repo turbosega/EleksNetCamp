@@ -15,11 +15,11 @@ namespace WebApi.Controllers
         public UserController(IUserService userService) => _userService = userService;
 
         [HttpGet("{id}")]
-        [Authorize("AuthenticatedOnly")]
+        [Authorize(Policy = "AuthenticatedOnly")]
         public async Task<IActionResult> GetUserByIdAsync(int id) => Ok(await _userService.GetByIdAsync(id));
 
         [HttpGet("all")]
-        [Authorize("AuthenticatedOnly")]
+        [Authorize(Policy = "AuthenticatedOnly")]
         public async Task<IActionResult> GetAllUsersAsync() => Ok(await _userService.GetAllAsync());
 
         [HttpPost("rgstr")]

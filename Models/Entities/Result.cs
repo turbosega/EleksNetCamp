@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Models.Entities
 {
@@ -7,7 +8,7 @@ namespace Models.Entities
         public int Id    { get; set; }
         public int Score { get; set; }
 
-        //[JsonIgnore]
+        [JsonIgnore]
         public DateTime DateTime { get; set; } = DateTime.Now;
 
         public int UserId { get; set; }

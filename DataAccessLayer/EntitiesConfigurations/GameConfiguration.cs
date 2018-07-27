@@ -20,6 +20,9 @@ namespace DataAccessLayer.EntitiesConfigurations
             game.Property(g => g.About)
                 .IsRequired();
 
+            game.Property(g => g.ImageSrc)
+                .IsRequired();
+
             game.HasMany(g => g.Results)
                 .WithOne(result => result.Game)
                 .HasForeignKey(result => result.GameId)

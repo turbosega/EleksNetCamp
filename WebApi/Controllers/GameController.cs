@@ -15,15 +15,15 @@ namespace WebApi.Controllers
         public GameController(IGameService gameService) => _gameService = gameService;
 
         [HttpGet("{id}")]
-        [Authorize("AuthenticatedOnly")]
+        [Authorize(Policy = "AuthenticatedOnly")]
         public async Task<IActionResult> GetGameByIdAsync(int id) => Ok(await _gameService.GetByIdAsync(id));
 
         [HttpGet("all")]
-        [Authorize("AuthenticatedOnly")]
+        [Authorize(Policy = "AuthenticatedOnly")]
         public async Task<IActionResult> GetAllGamesAsync() => Ok(await _gameService.GetAllAsync());
 
         [HttpPost("new")]
-        [AllowAnonymous]
+        [Authorize(Policy = "AdministratorsOnly")]
         public async Task<IActionResult> CreateGameAsync([FromBody] GameDto gameDto)
         {
             var gameForSaving = await _gameService.CreateAsync(gameDto);

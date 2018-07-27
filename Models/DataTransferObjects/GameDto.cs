@@ -6,6 +6,7 @@ namespace Models.DataTransferObjects
     {
         private string _title;
         private string _about;
+        private string _imageSrc;
 
         [Required]
         [MinLength(3)]
@@ -24,6 +25,14 @@ namespace Models.DataTransferObjects
         {
             get => _about;
             set => _about = value.Trim();
+        }
+
+        [Required]
+        [Display(Name = "imageSrc")]
+        public string ImageSrc
+        {
+            get => _imageSrc;
+            set => _imageSrc = value.Trim();
         }
     }
 }

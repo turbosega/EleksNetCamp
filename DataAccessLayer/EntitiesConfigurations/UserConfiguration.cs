@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models.Entities;
@@ -23,13 +24,12 @@ namespace DataAccessLayer.EntitiesConfigurations
                 .IsRequired();
 
             user.Property(u => u.UserType)
-                .HasConversion(userType => userType.ToString(),
-                               userType => (UserType) Enum.Parse(typeof(UserType), userType))
-                .HasMaxLength(20);
+                .IsRequired();
 
             user.HasMany(u => u.Results)
                 .WithOne(result => result.User)
                 .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

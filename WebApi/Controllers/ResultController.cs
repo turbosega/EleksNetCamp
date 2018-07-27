@@ -15,15 +15,15 @@ namespace WebApi.Controllers
         public ResultController(IResultService resultService) => _resultService = resultService;
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [Authorize(Policy = "AuthenticatedOnly")]
         public async Task<IActionResult> GetResultByIdAsync(int id) => Ok(await _resultService.GetByIdAsync(id));
 
         [HttpGet("all")]
-        [AllowAnonymous]
+        [Authorize(Policy = "AuthenticatedOnly")]
         public async Task<IActionResult> GetAllResultsAsync() => Ok(await _resultService.GetAllAsync());
 
         [HttpPost("new")]
-        [AllowAnonymous]
+        [Authorize(Policy = "AuthenticatedOnly")]
         public async Task<IActionResult> CreateResultAsync([FromBody] ResultDto resultDto)
         {
             var resultForSaving = await _resultService.CreateAsync(resultDto);
