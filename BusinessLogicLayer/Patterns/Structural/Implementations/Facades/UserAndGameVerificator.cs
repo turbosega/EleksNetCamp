@@ -16,7 +16,11 @@ namespace BusinessLogicLayer.Patterns.Structural.Implementations.Facades
             _gameService = gameService;
         }
 
-        public async Task<bool> CheckIfUserAndGameExist(ResultDto resultDto) =>
-            await _userService.GetByIdAsync(resultDto.UserId) != null && await _gameService.GetByIdAsync(resultDto.GameId) != null;
+        public async Task CheckIfUserAndGameExist(ResultDto resultDto)
+        {
+            var userCheckingTask = _userService.GetByIdAsync(resultDto.UserId);
+            var gameCheckingTask = _gameService.GetByIdAsync(resultDto.GameId);
+            await Task.WhenAll(userCheckingTask, gameCheckingTask);
+        }
     }
 }

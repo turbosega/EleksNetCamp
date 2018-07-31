@@ -5,6 +5,6 @@ namespace BusinessLogicLayer.Patterns.Structural.Interfaces.Facades
 {
     public interface IUserAndGameVerificator
     {
-        Task<bool> CheckIfUserAndGameExist(ResultDto resultDto);
+        Task CheckIfUserAndGameExist(ResultDto resultDto);
     }
 }

@@ -7,7 +7,8 @@ namespace WebApi.Validators
     {
         public ResultCreatingDataValidator()
         {
-            RuleFor(dto => dto.Score).Must(score => score > 0);
+            RuleFor(dto => dto.Score).Must(score => score > 0)
+                                     .WithMessage("Score can not be less than 1");
         }
     }
 }
