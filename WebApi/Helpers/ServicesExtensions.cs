@@ -1,4 +1,6 @@
-﻿using BusinessLogicLayer.Services.Implementations;
+﻿using BusinessLogicLayer.Patterns.Structural.Implementations.Facades;
+using BusinessLogicLayer.Patterns.Structural.Interfaces.Facades;
+using BusinessLogicLayer.Services.Implementations;
 using BusinessLogicLayer.Services.Interfaces;
 using DataAccessLayer.Repositories.Implementations;
 using DataAccessLayer.Repositories.Interfaces;
@@ -27,6 +29,7 @@ namespace WebApi.Helpers
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<IResultService, ResultService>();
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddTransient<IUserAndGameVerificator, UserAndGameVerificator>();
         }
 
         public static void ConfigureAuthorization(this IServiceCollection services)
