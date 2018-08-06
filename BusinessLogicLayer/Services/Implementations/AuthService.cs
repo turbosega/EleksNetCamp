@@ -57,7 +57,7 @@ namespace BusinessLogicLayer.Services.Implementations
                                              audience: _jwtSettings.Audience,
                                              claims: claims,
                                              notBefore: DateTime.Now,
-                                             expires: DateTime.Now.AddDays(7),
+                                             expires: DateTime.Now.AddHours(24),
                                              signingCredentials: _jwtSettings.SigningCredentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

@@ -23,7 +23,7 @@ namespace WebApi.Controllers
         public async Task<IActionResult> GetAllGamesAsync() => Ok(await _gameService.GetAllAsync());
 
         [HttpPost("new")]
-        [Authorize(Policy = "AdministratorsOnly")]
+        //[Authorize(Policy = "AdministratorsOnly")]
         public async Task<IActionResult> CreateGameAsync([FromBody] GameDto gameDto)
         {
             var gameForSaving = await _gameService.CreateAsync(gameDto);

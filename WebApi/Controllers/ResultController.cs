@@ -24,15 +24,10 @@ namespace WebApi.Controllers
 
         [HttpPost("new")]
         [Authorize(Policy = "AuthenticatedOnly")]
-        public async Task<IActionResult> CreateResultAsync([FromBody] ResultDto resultDto)
-        {
-            var resultForSaving = await _resultService.CreateAsync(resultDto);
-            if (resultForSaving == null)
-            {
-                return UnprocessableEntity();
-            }
-
-            return Ok(resultForSaving);
-        }
+        public async Task<IActionResult> CreateResultAsync([FromBody] ResultDto resultDto) => Ok(await _resultService.CreateAsync(resultDto));
+            
+        [HttpGet]
+        [Authorize(Policy = "AuthenticatedOnly")]
+        public async Task<IActionResult> GetResultsByUserIdAndGameIdAsync(int userId, int gameId) => Ok(await _resultService.GetResultsByUserIdAndGameIdAsync(userId, gameId));
     }
 }
