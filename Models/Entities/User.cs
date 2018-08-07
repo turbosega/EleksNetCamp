@@ -4,9 +4,8 @@ using Newtonsoft.Json;
 
 namespace Models.Entities
 {
-    public class User
+    public class User : BaseEntity
     {
-        public int    Id        { get; set; }
         public string Login     { get; set; }
         public string AvatarUrl { get; set; }
 

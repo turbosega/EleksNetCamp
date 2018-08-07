@@ -40,7 +40,7 @@ namespace BusinessLogicLayer.Services.Implementations
         public async Task<IEnumerable<Result>> GetResultsByUserIdAndGameIdAsync(int userId, int gameId)
         {
             await _userAndGameVerificator.CheckIfUserAndGameExist(userId, gameId);
-            return await _unitOfWork.Results.GetResultsByUserIdAndGameIdAsync(userId, gameId);
+            return await _unitOfWork.Results.GetByConditionAsync(result => result.UserId == userId && result.GameId == gameId);
         }
 
         private Result MapFromDtoToResult(ResultDto resultDto) => _mapper.Map<Result>(resultDto);

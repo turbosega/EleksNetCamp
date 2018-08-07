@@ -3,9 +3,8 @@ using Newtonsoft.Json;
 
 namespace Models.Entities
 {
-    public class Result
+    public class Result : BaseEntity
     {
-        public int Id    { get; set; }
         public int Score { get; set; }
 
         [JsonIgnore]

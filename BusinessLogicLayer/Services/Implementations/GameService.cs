@@ -39,6 +39,15 @@ namespace BusinessLogicLayer.Services.Implementations
             return gameForSaving;
         }
 
+        /*
+         * not sure if it is the best way to solve this business task
+         * but want to try to use tuples
+         */
+        public async Task<IEnumerable<(User user, double rating)>> GetRatingsByGameIdAsync(int gameId)
+        {
+            return null;
+        }
+
         private async Task<bool> DoesGameWithThisTitleExist(string providedTitle) => await _unitOfWork.Games.GetByTitleAsync(providedTitle) != null;
 
         private Game MapFromDtoToGame(GameDto gameDto) => _mapper.Map<Game>(gameDto);

@@ -2,9 +2,8 @@
 
 namespace Models.Entities
 {
-    public class Game
+    public class Game : BaseEntity
     {
-        public int    Id       { get; set; }
         public string Title    { get; set; }
         public string About    { get; set; }
         public string ImageSrc { get; set; }
