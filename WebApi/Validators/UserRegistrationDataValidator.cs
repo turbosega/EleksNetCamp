@@ -11,6 +11,8 @@ namespace WebApi.Validators
                                      .WithMessage("Login can not contain two and more spaces in a row");
             RuleFor(dto => dto.Password.ToLower()).NotEqual(dto => dto.Login.ToLower())
                                                   .WithMessage("Password must not match with login");
+            RuleFor(dto => dto.Avatar).NotNull()
+                                      .WithMessage("Avatar must be provided");
         }
     }
 }

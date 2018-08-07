@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogicLayer.Exceptions;
@@ -41,11 +40,7 @@ namespace BusinessLogicLayer.Services.Implementations
         public async Task<IEnumerable<Result>> GetResultsByUserIdAndGameIdAsync(int userId, int gameId)
         {
             await _userAndGameVerificator.CheckIfUserAndGameExist(userId, gameId);
-            var userScoresTask = _unitOfWork.Results.GetResultsByUserIdAsync(userId);
-            var gameScoresTask = _unitOfWork.Results.GetResultsByGameIdAsync(gameId);
-            var userScores     = await userScoresTask;
-            var gameScores     = await gameScoresTask;
-            return userScores.Intersect(gameScores);
+            return await _unitOfWork.Results.GetResultsByUserIdAndGameIdAsync(userId, gameId);
         }
 
         private Result MapFromDtoToResult(ResultDto resultDto) => _mapper.Map<Result>(resultDto);

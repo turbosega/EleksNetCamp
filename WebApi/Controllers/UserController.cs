@@ -25,6 +25,6 @@ namespace WebApi.Controllers
 
         [HttpPost("rgstr")]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateUserAsync([FromBody] UserDto userDto) => Ok(await _userService.CreateAsync(userDto));
+        public async Task<IActionResult> CreateUserAsync([FromForm] UserDto userDto) => Ok(await _userService.CreateAsync(userDto));
     }
 }

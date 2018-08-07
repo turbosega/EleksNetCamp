@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using AutoMapper;
-using BusinessLogicLayer.Helpers;
+using BusinessLogicLayer.Utilities.Settings;
 using DataAccessLayer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -22,9 +22,10 @@ namespace WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseInMemoryDatabase());
+            services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseInMemoryDatabase());
             services.Configure<JwtSettings>(Configuration.GetSection("JWT"));
+            services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
             services.InjectDependencies();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>

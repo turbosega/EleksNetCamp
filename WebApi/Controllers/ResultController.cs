@@ -28,7 +28,7 @@ namespace WebApi.Controllers
         public async Task<IActionResult> CreateResultAsync([FromBody] ResultDto resultDto) => Ok(await _resultService.CreateAsync(resultDto));
             
         [HttpGet]
-        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy]
+        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetResultsByUserIdAndGameIdAsync(int userId, int gameId) => Ok(await _resultService.GetResultsByUserIdAndGameIdAsync(userId, gameId));
     }
 }

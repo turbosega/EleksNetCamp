@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace Models.DataTransferObjects
 {
@@ -20,5 +21,9 @@ namespace Models.DataTransferObjects
         [MinLength(8)]
         [Display(Name = "password")]
         public string Password { get; set; }
+
+        [Required]
+        [Display(Name = "avatar")]
+        public IFormFile Avatar { get; set; }
     }
 }

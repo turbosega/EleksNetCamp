@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogicLayer.Exceptions;
 using BusinessLogicLayer.Services.Interfaces;
+using BusinessLogicLayer.Utilities;
 using DataAccessLayer.UnitsOfWork.Interfaces;
 using Models.DataTransferObjects;
 using Models.Entities;
@@ -11,13 +12,15 @@ namespace BusinessLogicLayer.Services.Implementations
 {
     public class UserService : IUserService
     {
-        private readonly IMapper     _mapper;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper        _mapper;
+        private readonly IUnitOfWork    _unitOfWork;
+        private readonly IImageUploader _imageUploader;
 
-        public UserService(IMapper mapper, IUnitOfWork unitOfWork)
+        public UserService(IMapper mapper, IUnitOfWork unitOfWork, IImageUploader imageUploader)
         {
-            _mapper     = mapper;
-            _unitOfWork = unitOfWork;
+            _mapper        = mapper;
+            _unitOfWork    = unitOfWork;
+            _imageUploader = imageUploader;
         }
 
         public async Task<User> GetByIdAsync(int id) => await _unitOfWork.Users.GetByIdAsync(id) ??
@@ -33,6 +36,7 @@ namespace BusinessLogicLayer.Services.Implementations
             }
 
             var userForSaving = MapFromDtoToUser(userDto);
+            userForSaving.AvatarUrl = _imageUploader.UploadImageFromForm(userDto.Avatar);
             await _unitOfWork.Users.CreateAsync(userForSaving);
             await _unitOfWork.SaveChangesAsync();
             return userForSaving;

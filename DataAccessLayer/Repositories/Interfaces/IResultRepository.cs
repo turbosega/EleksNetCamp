@@ -9,5 +9,7 @@ namespace DataAccessLayer.Repositories.Interfaces
         Task<IEnumerable<Result>> GetResultsByUserIdAsync(int userId);
 
         Task<IEnumerable<Result>> GetResultsByGameIdAsync(int gameId);
+
+        Task<IEnumerable<Result>> GetResultsByUserIdAndGameIdAsync(int userId, int gameId);
     }
 }

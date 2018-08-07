@@ -17,6 +17,9 @@ namespace DataAccessLayer.EntitiesConfigurations
                 .HasMaxLength(20)
                 .IsRequired();
 
+            user.Property(u => u.AvatarUrl)
+                .IsRequired();
+
             user.Property(u => u.PasswordHash)
                 .IsRequired();
 
@@ -26,7 +29,6 @@ namespace DataAccessLayer.EntitiesConfigurations
             user.HasMany(u => u.Results)
                 .WithOne(result => result.User)
                 .OnDelete(DeleteBehavior.Cascade);
-
         }
     }
 }

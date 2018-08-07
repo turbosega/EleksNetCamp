@@ -2,6 +2,7 @@
 using BusinessLogicLayer.Patterns.Structural.Interfaces.Facades;
 using BusinessLogicLayer.Services.Implementations;
 using BusinessLogicLayer.Services.Interfaces;
+using BusinessLogicLayer.Utilities;
 using DataAccessLayer.Repositories.Implementations;
 using DataAccessLayer.Repositories.Interfaces;
 using DataAccessLayer.UnitsOfWork.Implementations;
@@ -30,6 +31,7 @@ namespace WebApi.Helpers
             services.AddScoped<IResultService, ResultService>();
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddTransient<IUserAndGameVerificator, UserAndGameVerificator>();
+            services.AddTransient<IImageUploader, CloudinaryImageUploader>();
         }
 
         public static void ConfigureAuthorization(this IServiceCollection services)

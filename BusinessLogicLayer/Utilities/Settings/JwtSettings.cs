@@ -1,9 +1,9 @@
 ﻿using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BusinessLogicLayer.Helpers
+namespace BusinessLogicLayer.Utilities.Settings
 {
-    public class JwtSettings
+    public sealed class JwtSettings
     {
         public string Key      { get; set; }
         public string Issuer   { get; set; }

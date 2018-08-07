@@ -24,8 +24,8 @@ namespace WebApi.Controllers
         public async Task<IActionResult> GetAllGamesAsync() => Ok(await _gameService.GetAllAsync());
 
         [HttpPost("new")]
-        //[Authorize(Policy = ApiStringConstants.AdministratorsOnlyPolicy)]
-        public async Task<IActionResult> CreateGameAsync([FromBody] GameDto gameDto) => Ok(await _gameService.CreateAsync(gameDto));
+        [Authorize(Policy = ApiStringConstants.AdministratorsOnlyPolicy)]
+        public async Task<IActionResult> CreateGameAsync([FromForm] GameDto gameDto) => Ok(await _gameService.CreateAsync(gameDto));
         
     }
 }

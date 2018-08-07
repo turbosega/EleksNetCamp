@@ -24,5 +24,8 @@ namespace DataAccessLayer.Repositories.Implementations
 
         public async Task<IEnumerable<Result>> GetResultsByGameIdAsync(int gameId) =>
             await _db.Results.AsQueryable().Where(result => result.GameId == gameId).ToListAsync();
+
+        public async Task<IEnumerable<Result>> GetResultsByUserIdAndGameIdAsync(int userId, int gameId) =>
+            await _db.Results.AsQueryable().Where(result => result.UserId == userId && result.GameId == gameId).ToListAsync();
     }
 }
