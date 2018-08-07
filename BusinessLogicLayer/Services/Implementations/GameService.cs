@@ -30,7 +30,7 @@ namespace BusinessLogicLayer.Services.Implementations
         {
             if (await DoesGameWithThisTitleExist(gameDto.Title))
             {
-                return null;
+                throw new NameOfResourceIsTakenException($"Game with title: {gameDto.Title} already exists");
             }
 
             var gameForSaving = MapFromDtoToGame(gameDto);

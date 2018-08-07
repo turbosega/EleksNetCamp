@@ -3,10 +3,11 @@ using BusinessLogicLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DataTransferObjects;
+using WebApi.Helpers;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiStringConstants.StandartControllerRoute)]
     [ApiController]
     [AllowAnonymous]
     public class AuthController : ControllerBase

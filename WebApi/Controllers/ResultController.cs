@@ -3,10 +3,11 @@ using BusinessLogicLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DataTransferObjects;
+using WebApi.Helpers;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiStringConstants.StandartControllerRoute)]
     [ApiController]
     public class ResultController : ControllerBase
     {
@@ -15,19 +16,19 @@ namespace WebApi.Controllers
         public ResultController(IResultService resultService) => _resultService = resultService;
 
         [HttpGet("{id}")]
-        [Authorize(Policy = "AuthenticatedOnly")]
+        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetResultByIdAsync(int id) => Ok(await _resultService.GetByIdAsync(id));
 
         [HttpGet("all")]
-        [Authorize(Policy = "AuthenticatedOnly")]
+        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetAllResultsAsync() => Ok(await _resultService.GetAllAsync());
 
         [HttpPost("new")]
-        [Authorize(Policy = "AuthenticatedOnly")]
+        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> CreateResultAsync([FromBody] ResultDto resultDto) => Ok(await _resultService.CreateAsync(resultDto));
             
         [HttpGet]
-        [Authorize(Policy = "AuthenticatedOnly")]
+        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy]
         public async Task<IActionResult> GetResultsByUserIdAndGameIdAsync(int userId, int gameId) => Ok(await _resultService.GetResultsByUserIdAndGameIdAsync(userId, gameId));
     }
 }

@@ -16,7 +16,7 @@ namespace WebApi.Filters.Exception
                 switch (exception)
                 {
                     case LoginIsTakenException e:
-                        context.Result = new UnprocessableEntityObjectResult(e.Message);
+                        context.Result = new ConflictObjectResult(e.Message);
                         break;
                     case BadCredentialsException e:
                         context.Result = new UnprocessableEntityObjectResult(e.Message);
@@ -26,6 +26,9 @@ namespace WebApi.Filters.Exception
                         break;
                     case ValidationException e:
                         context.Result = new BadRequestObjectResult(e.Message);
+                        break;
+                    case NameOfResourceIsTakenException e:
+                        context.Result = new ConflictObjectResult(e.Message);
                         break;
                     default:
                         context.HttpContext.Response.StatusCode = 500;
