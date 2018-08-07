@@ -5,6 +5,6 @@ namespace BusinessLogicLayer.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<string> AuthenticateAsync(UserDto userDto);
+        Task<string> AuthenticateAsync(UserAuthDto authDto);
     }
 }

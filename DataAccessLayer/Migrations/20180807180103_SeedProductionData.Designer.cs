@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20180727160747_ChangeRoleType")]
-    partial class ChangeRoleType
+    [Migration("20180807180103_SeedProductionData")]
+    partial class SeedProductionData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,6 +43,10 @@ namespace DataAccessLayer.Migrations
                         .IsUnique();
 
                     b.ToTable("Games");
+
+                    b.HasData(
+                        new { Id = 1, About = "Flappy Bird on minimum", ImageSrc = "https://res.cloudinary.com/stnsfld/image/upload/v1533659984/wallhaven-32786.jpg", Title = "Flappy Doggo" }
+                    );
                 });
 
             modelBuilder.Entity("Models.Entities.Result", b =>
@@ -76,6 +80,9 @@ namespace DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AvatarUrl")
+                        .IsRequired();
+
                     b.Property<string>("Login")
                         .IsRequired()
                         .HasMaxLength(20);
@@ -93,7 +100,7 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = 1, Login = "Fry", PasswordHash = "AQAAAAEAACcQAAAAEAyTA6a5i6/Ns6VkkhDgh345S9gj+aYUPTmJRBO2TJzQdMOxJApGpWn9k6XL5+VtfA==", UserType = 2 }
+                        new { Id = 1, AvatarUrl = "https://res.cloudinary.com/stnsfld/image/upload/v1533657580/gghsflish4e1jr43q2yd.png", Login = "Fry", PasswordHash = "AQAAAAEAACcQAAAAEAyTA6a5i6/Ns6VkkhDgh345S9gj+aYUPTmJRBO2TJzQdMOxJApGpWn9k6XL5+VtfA==", UserType = 2 }
                     );
                 });
 

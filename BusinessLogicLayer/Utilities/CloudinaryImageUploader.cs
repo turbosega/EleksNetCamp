@@ -15,15 +15,12 @@ namespace BusinessLogicLayer.Utilities
             _cloudinarySettings = cloudinaryOptions.Value;
         }
 
-        public string UploadImageFromForm(IFormFile imageFile)
-        {
-            return new Cloudinary(new Account(_cloudinarySettings.Cloud,
-                                              _cloudinarySettings.ApiKey,
-                                              _cloudinarySettings.ApiSecret))
-                  .Upload(new ImageUploadParams()
-                   {
-                       File = new FileDescription(imageFile.FileName, imageFile.OpenReadStream())
-                   }).SecureUri.AbsoluteUri;
-        }
+        public string UploadImageFromForm(IFormFile imageFile) => new Cloudinary(new Account(_cloudinarySettings.Cloud,
+                                                                                             _cloudinarySettings.ApiKey,
+                                                                                             _cloudinarySettings.ApiSecret))
+                                                                 .Upload(new ImageUploadParams
+                                                                  {
+                                                                      File = new FileDescription(imageFile.FileName, imageFile.OpenReadStream())
+                                                                  }).SecureUri.AbsoluteUri;
     }
 }

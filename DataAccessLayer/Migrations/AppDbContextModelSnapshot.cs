@@ -41,6 +41,10 @@ namespace DataAccessLayer.Migrations
                         .IsUnique();
 
                     b.ToTable("Games");
+
+                    b.HasData(
+                        new { Id = 1, About = "Flappy Bird on minimum", ImageSrc = "https://res.cloudinary.com/stnsfld/image/upload/v1533659984/wallhaven-32786.jpg", Title = "Flappy Doggo" }
+                    );
                 });
 
             modelBuilder.Entity("Models.Entities.Result", b =>
@@ -92,6 +96,10 @@ namespace DataAccessLayer.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new { Id = 1, AvatarUrl = "https://res.cloudinary.com/stnsfld/image/upload/v1533657580/gghsflish4e1jr43q2yd.png", Login = "Fry", PasswordHash = "AQAAAAEAACcQAAAAEAyTA6a5i6/Ns6VkkhDgh345S9gj+aYUPTmJRBO2TJzQdMOxJApGpWn9k6XL5+VtfA==", UserType = 2 }
+                    );
                 });
 
             modelBuilder.Entity("Models.Entities.Result", b =>

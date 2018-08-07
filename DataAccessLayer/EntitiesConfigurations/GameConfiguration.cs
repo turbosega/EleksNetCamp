@@ -27,6 +27,14 @@ namespace DataAccessLayer.EntitiesConfigurations
                 .WithOne(result => result.Game)
                 .HasForeignKey(result => result.GameId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            game.HasData(new Game
+            {
+                Id = 1,
+                Title    = "Flappy Doggo",
+                About    = "Flappy Bird on minimum",
+                ImageSrc = "https://res.cloudinary.com/stnsfld/image/upload/v1533659984/wallhaven-32786.jpg"
+            });
         }
     }
 }

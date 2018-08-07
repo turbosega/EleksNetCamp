@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class Initial : Migration
+    public partial class SeedProductionData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,8 @@ namespace DataAccessLayer.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(maxLength: 50, nullable: false),
-                    About = table.Column<string>(nullable: false)
+                    About = table.Column<string>(nullable: false),
+                    ImageSrc = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,8 +30,9 @@ namespace DataAccessLayer.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Login = table.Column<string>(maxLength: 20, nullable: false),
+                    AvatarUrl = table.Column<string>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: false),
-                    UserType = table.Column<string>(maxLength: 20, nullable: false)
+                    UserType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,8 +45,8 @@ namespace DataAccessLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    GameOutcome = table.Column<string>(maxLength: 20, nullable: false),
-                    DateTime = table.Column<DateTime>(type: "smalldatetime", nullable: false),
+                    Score = table.Column<int>(nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     GameId = table.Column<int>(nullable: false)
                 },
@@ -64,6 +66,16 @@ namespace DataAccessLayer.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Games",
+                columns: new[] { "Id", "About", "ImageSrc", "Title" },
+                values: new object[] { 1, "Flappy Bird on minimum", "https://res.cloudinary.com/stnsfld/image/upload/v1533659984/wallhaven-32786.jpg", "Flappy Doggo" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "AvatarUrl", "Login", "PasswordHash", "UserType" },
+                values: new object[] { 1, "https://res.cloudinary.com/stnsfld/image/upload/v1533657580/gghsflish4e1jr43q2yd.png", "Fry", "AQAAAAEAACcQAAAAEAyTA6a5i6/Ns6VkkhDgh345S9gj+aYUPTmJRBO2TJzQdMOxJApGpWn9k6XL5+VtfA==", 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Games_Title",

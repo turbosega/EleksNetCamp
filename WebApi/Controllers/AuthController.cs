@@ -17,12 +17,12 @@ namespace WebApi.Controllers
         public AuthController(IAuthService authService) => _authService = authService;
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] UserDto userDto)
+        public async Task<IActionResult> LoginAsync([FromBody] UserAuthDto authDto)
         {
-            var token = await _authService.AuthenticateAsync(userDto);
+            var token = await _authService.AuthenticateAsync(authDto);
             return Ok(new
             {
-                userDto.Login,
+                authDto.Login,
                 token
             });
         }

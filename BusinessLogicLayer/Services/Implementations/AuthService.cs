@@ -27,8 +27,8 @@ namespace BusinessLogicLayer.Services.Implementations
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<string> AuthenticateAsync(UserDto userDto) =>
-            BuildToken(await GetUserIfCorrectCredentialsAsync(userDto.Login, userDto.Password));
+        public async Task<string> AuthenticateAsync(UserAuthDto authDto) =>
+            BuildToken(await GetUserIfCorrectCredentialsAsync(authDto.Login, authDto.Password));
 
         private async Task<User> GetUserIfCorrectCredentialsAsync(string providedLogin, string providedPassword)
         {
@@ -50,7 +50,7 @@ namespace BusinessLogicLayer.Services.Implementations
             {
                 new Claim("id", user.Id.ToString()),
                 new Claim("login", user.Login),
-                new Claim("role", user.UserType == UserType.Administrator ? "admin" : "regular")
+                new Claim(ClaimTypes.Role, user.UserType == UserType.Administrator ? "admin" : "regular")
             };
 
             var token = new JwtSecurityToken(issuer: _jwtSettings.Issuer,
