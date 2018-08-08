@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using Models.DataTransferObjects;
+using Models.DataTransferObjects.Creating;
 
 namespace WebApi.Validators
 {
-    public class GameCreatingDataValidator : AbstractValidator<GameDto>
+    public class GameCreatingDataValidator : AbstractValidator<GameCreatingDto>
     {
         public GameCreatingDataValidator() {
             RuleFor(dto => dto.Title).Must(title => !title.Contains("  "))

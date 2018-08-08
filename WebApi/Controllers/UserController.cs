@@ -2,7 +2,7 @@
 using BusinessLogicLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Models.DataTransferObjects;
+using Models.DataTransferObjects.Creating;
 using WebApi.Helpers;
 
 namespace WebApi.Controllers
@@ -25,6 +25,6 @@ namespace WebApi.Controllers
 
         [HttpPost("rgstr")]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateUserAsync([FromForm] UserDto userDto) => Ok(await _userService.CreateAsync(userDto));
+        public async Task<IActionResult> CreateUserAsync([FromForm] UserRegistrationDto userDto) => Ok(await _userService.CreateAsync(userDto));
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Models.DataTransferObjects;
-using Models.Entities;
+using Models.DataTransferObjects.Creating;
 
 namespace BusinessLogicLayer.Services.Interfaces
 {
-    public interface IUserService : IService<User, UserDto>
+    public interface IUserService : IService<UserDto, UserRegistrationDto>
     {
     }
 }

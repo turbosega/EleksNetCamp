@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Helpers
 {
-    public class ApiStringConstants
+    public static class ApiStringConstants
     {
         public const string AuthenticatedOnlyPolicy  = "AuthenticatedOnly";
         public const string AdministratorsOnlyPolicy = "AdministratorsOnly";

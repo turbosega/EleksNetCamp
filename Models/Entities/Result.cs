@@ -1,14 +1,8 @@
-﻿using System;
-using Newtonsoft.Json;
-
-namespace Models.Entities
+﻿namespace Models.Entities
 {
     public class Result : BaseEntity
     {
         public int Score { get; set; }
-
-        [JsonIgnore]
-        public DateTime DateTime { get; set; } = DateTime.Now;
 
         public int UserId { get; set; }
         public int GameId { get; set; }

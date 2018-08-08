@@ -2,7 +2,7 @@
 using BusinessLogicLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Models.DataTransferObjects;
+using Models.DataTransferObjects.Creating;
 using WebApi.Helpers;
 
 namespace WebApi.Controllers

@@ -2,7 +2,7 @@
 using BusinessLogicLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Models.DataTransferObjects;
+using Models.DataTransferObjects.Creating;
 using WebApi.Helpers;
 
 namespace WebApi.Controllers
@@ -25,7 +25,7 @@ namespace WebApi.Controllers
 
         [HttpPost("new")]
         [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
-        public async Task<IActionResult> CreateResultAsync([FromBody] ResultDto resultDto) => Ok(await _resultService.CreateAsync(resultDto));
+        public async Task<IActionResult> CreateResultAsync([FromBody] ResultCreatingDto resultDto) => Ok(await _resultService.CreateAsync(resultDto));
             
         [HttpGet]
         [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]

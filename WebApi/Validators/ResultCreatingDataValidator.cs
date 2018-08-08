@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using Models.DataTransferObjects;
+using Models.DataTransferObjects.Creating;
 
 namespace WebApi.Validators
 {
-    public class ResultCreatingDataValidator : AbstractValidator<ResultDto>
+    public class ResultCreatingDataValidator : AbstractValidator<ResultCreatingDto>
     {
         public ResultCreatingDataValidator()
         {

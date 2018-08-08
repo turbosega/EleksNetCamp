@@ -19,11 +19,6 @@ namespace DataAccessLayer.EntitiesConfigurations
             result.Property(r => r.Score)
                   .IsRequired();
 
-            result.Property(r => r.DateTime)
-                  .HasColumnType("datetime")
-                  .ValueGeneratedOnAdd()
-                  .IsRequired();
-
             result.HasOne(r => r.User)
                   .WithMany(user => user.Results)
                   .HasForeignKey(r => r.UserId)

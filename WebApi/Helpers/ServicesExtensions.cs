@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using BusinessLogicLayer.Patterns.Structural.Implementations.Facades;
+﻿using BusinessLogicLayer.Patterns.Structural.Implementations.Facades;
 using BusinessLogicLayer.Patterns.Structural.Interfaces.Facades;
 using BusinessLogicLayer.Services.Implementations;
 using BusinessLogicLayer.Services.Interfaces;
@@ -40,7 +39,7 @@ namespace WebApi.Helpers
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("AuthenticatedOnly", policy => policy.RequireAuthenticatedUser());
-                options.AddPolicy("AdministratorsOnly", policy => policy.RequireClaim(ClaimTypes.Role, "admin"));
+                options.AddPolicy("AdministratorsOnly", policy => policy.RequireClaim(Constants.Role, "admin"));
             });
         }
 

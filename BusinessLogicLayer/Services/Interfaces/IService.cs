@@ -3,13 +3,14 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.Services.Interfaces
 {
-    public interface IService<TEntity, TEntityDto> where TEntity : class
-                                                   where TEntityDto : class
+    public interface IService<TEntityDto, TCreatingDto> where TEntityDto : class
+                                                        where TCreatingDto : class
+
     {
-        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntityDto> GetByIdAsync(int id);
 
-        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<IEnumerable<TEntityDto>> GetAllAsync();
 
-        Task<TEntity> CreateAsync(TEntityDto entityDto);
+        Task<TEntityDto> CreateAsync(TCreatingDto entityDto);
     }
 }

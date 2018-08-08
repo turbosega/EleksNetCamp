@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Models.DataTransferObjects;
-using Models.Entities;
+using Models.DataTransferObjects.Creating;
 
 namespace BusinessLogicLayer.Services.Interfaces
 {
-    public interface IResultService : IService<Result, ResultDto>
+    public interface IResultService : IService<ResultDto, ResultCreatingDto>
     {
-        Task<IEnumerable<Result>> GetResultsByUserIdAndGameIdAsync(int userId, int gameId);
+        Task<IEnumerable<ResultDto>> GetResultsByUserIdAndGameIdAsync(int userId, int gameId);
     }
 }

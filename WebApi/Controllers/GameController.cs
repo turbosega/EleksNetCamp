@@ -2,7 +2,7 @@
 using BusinessLogicLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Models.DataTransferObjects;
+using Models.DataTransferObjects.Creating;
 using WebApi.Helpers;
 
 namespace WebApi.Controllers
@@ -24,11 +24,11 @@ namespace WebApi.Controllers
         public async Task<IActionResult> GetAllGamesAsync() => Ok(await _gameService.GetAllAsync());
 
         [HttpPost("new")]
-        [Authorize(Policy = ApiStringConstants.AdministratorsOnlyPolicy)]
-        public async Task<IActionResult> CreateGameAsync([FromBody] GameDto gameDto) => Ok(await _gameService.CreateAsync(gameDto));
+        //[Authorize(Policy = ApiStringConstants.AdministratorsOnlyPolicy)]
+        public async Task<IActionResult> CreateGameAsync([FromBody] GameCreatingDto gameDto) => Ok(await _gameService.CreateAsync(gameDto));
 
         [HttpGet("{id}/ratings")]
-        [Authorize(Policy = ApiStringConstants.AdministratorsOnlyPolicy)]
-        public async Task<IActionResult> GetRatingsByGameIdAsync(int id) => Ok();
+        //[Authorize(Policy = ApiStringConstants.AdministratorsOnlyPolicy)]
+        public async Task<IActionResult> GetRatingsByGameIdAsync(int id) => Ok(await _gameService.GetRatingsByGameIdAsync(id));
     }
 }

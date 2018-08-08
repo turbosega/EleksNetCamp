@@ -4,11 +4,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using BusinessLogicLayer.Exceptions;
 using BusinessLogicLayer.Services.Interfaces;
+using BusinessLogicLayer.Utilities;
 using BusinessLogicLayer.Utilities.Settings;
 using DataAccessLayer.UnitsOfWork.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using Models.DataTransferObjects;
+using Models.DataTransferObjects.Creating;
 using Models.Entities;
 using Models.Enumerations;
 
@@ -50,7 +51,7 @@ namespace BusinessLogicLayer.Services.Implementations
             {
                 new Claim("id", user.Id.ToString()),
                 new Claim("login", user.Login),
-                new Claim(ClaimTypes.Role, user.UserType == UserType.Administrator ? "admin" : "regular")
+                new Claim(Constants.Role, user.UserType == UserType.Administrator ? "admin" : "regular")
             };
 
             var token = new JwtSecurityToken(issuer: _jwtSettings.Issuer,

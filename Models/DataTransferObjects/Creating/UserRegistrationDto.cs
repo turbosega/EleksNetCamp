@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
-namespace Models.DataTransferObjects
+namespace Models.DataTransferObjects.Creating
 {
-    public class UserAuthDto
+    public class UserRegistrationDto
     {
         private string _login;
 
@@ -10,7 +11,8 @@ namespace Models.DataTransferObjects
         [MinLength(3)]
         [MaxLength(20)]
         [Display(Name = "login")]
-        public string Login {
+        public string Login
+        {
             get => _login;
             set => _login = value.Trim();
         }
@@ -19,5 +21,9 @@ namespace Models.DataTransferObjects
         [MinLength(8)]
         [Display(Name = "password")]
         public string Password { get; set; }
+
+        [Required]
+        [Display(Name = "avatar")]
+        public IFormFile Avatar { get; set; }
     }
 }

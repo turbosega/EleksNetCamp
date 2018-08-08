@@ -6,6 +6,7 @@ using BusinessLogicLayer.Patterns.Structural.Interfaces.Facades;
 using BusinessLogicLayer.Services.Interfaces;
 using DataAccessLayer.UnitsOfWork.Interfaces;
 using Models.DataTransferObjects;
+using Models.DataTransferObjects.Creating;
 using Models.Entities;
 
 namespace BusinessLogicLayer.Services.Implementations
@@ -23,26 +24,25 @@ namespace BusinessLogicLayer.Services.Implementations
             _userAndGameVerificator = userAndGameVerificator;
         }
 
-        public async Task<Result> GetByIdAsync(int id) => await _unitOfWork.Results.GetByIdAsync(id) ??
-                                                          throw new ResourceNotFoundException($"Result with {nameof(id)}: {id} not found");
+        public async Task<ResultDto> GetByIdAsync(int id) => _mapper.Map<ResultDto>(await _unitOfWork.Results.GetByIdAsync(id)) ??
+                                                             throw new ResourceNotFoundException($"Result with {nameof(id)}: {id} not found");
 
-        public async Task<IEnumerable<Result>> GetAllAsync() => await _unitOfWork.Results.GetAllAsync();
+        public async Task<IEnumerable<ResultDto>> GetAllAsync() => _mapper.Map<IEnumerable<ResultDto>>(await _unitOfWork.Results.GetAllAsync());
 
-        public async Task<Result> CreateAsync(ResultDto resultDto)
+        public async Task<ResultDto> CreateAsync(ResultCreatingDto resultDto)
         {
             await _userAndGameVerificator.CheckIfUserAndGameExist(resultDto.UserId, resultDto.GameId);
-            var resultForSaving = MapFromDtoToResult(resultDto);
+            var resultForSaving = _mapper.Map<Result>(resultDto);
             await _unitOfWork.Results.CreateAsync(resultForSaving);
             await _unitOfWork.SaveChangesAsync();
-            return resultForSaving;
+            return _mapper.Map<ResultDto>(resultForSaving);
         }
 
-        public async Task<IEnumerable<Result>> GetResultsByUserIdAndGameIdAsync(int userId, int gameId)
+        public async Task<IEnumerable<ResultDto>> GetResultsByUserIdAndGameIdAsync(int userId, int gameId)
         {
             await _userAndGameVerificator.CheckIfUserAndGameExist(userId, gameId);
-            return await _unitOfWork.Results.GetByConditionAsync(result => result.UserId == userId && result.GameId == gameId);
+            return _mapper.Map<IEnumerable<ResultDto>>(await _unitOfWork.Results.GetByConditionAsync(result => result.UserId == userId &&
+                                                                                                               result.GameId == gameId));
         }
-
-        private Result MapFromDtoToResult(ResultDto resultDto) => _mapper.Map<Result>(resultDto);
     }
 }

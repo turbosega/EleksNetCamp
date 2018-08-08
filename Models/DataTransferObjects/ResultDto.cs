@@ -1,19 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Models.DataTransferObjects
+﻿namespace Models.DataTransferObjects
 {
     public class ResultDto
     {
-        [Required]
-        [Display(Name = "userId")]
-        public int UserId { get; set; }
-
-        [Required]
-        [Display(Name = "gameId")]
-        public int GameId { get; set; }
-
-        [Required]
-        [Display(Name = "score")]
+        public int Id    { get; set; }
         public int Score { get; set; }
+
+        public int    UserId        { get; set; }
+        public string UserLogin     { get; set; }
+        public string UserAvatarUrl { get; set; }
+
+        public int    GameId    { get; set; }
+        public string GameTitle { get; set; }
     }
 }
