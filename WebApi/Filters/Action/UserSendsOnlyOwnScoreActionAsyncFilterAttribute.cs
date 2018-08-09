@@ -12,11 +12,11 @@ namespace WebApi.Filters.Action
 {
     public class UserSendsOnlyOwnScoreActionAsyncFilterAttribute : TypeFilterAttribute
     {
-        public UserSendsOnlyOwnScoreActionAsyncFilterAttribute() : base(typeof(IfUserSendsHisOwnScoreActionAsyncFilter))
+        public UserSendsOnlyOwnScoreActionAsyncFilterAttribute() : base(typeof(UserSendsOnlyOwnScoreActionAsyncFilter))
         {
         }
 
-        private class IfUserSendsHisOwnScoreActionAsyncFilter : IAsyncActionFilter
+        private class UserSendsOnlyOwnScoreActionAsyncFilter : IAsyncActionFilter
         {
             public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
             {
