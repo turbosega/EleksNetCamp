@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Models.DataTransferObjects.Creating;
 
-namespace WebApi.Filters.Authorization
+namespace WebApi.Filters.Action
 {
-    public class UserSendsOnlyOwnScoreResourceAsyncFilterAttribute : TypeFilterAttribute
+    public class UserSendsOnlyOwnScoreActionAsyncFilterAttribute : TypeFilterAttribute
     {
-        public UserSendsOnlyOwnScoreResourceAsyncFilterAttribute() : base(typeof(IfUserSendsHisOwnScoreAuthorizationAsyncFilter))
+        public UserSendsOnlyOwnScoreActionAsyncFilterAttribute() : base(typeof(IfUserSendsHisOwnScoreActionAsyncFilter))
         {
         }
 
-        private class IfUserSendsHisOwnScoreAuthorizationAsyncFilter : IAsyncActionFilter
+        private class IfUserSendsHisOwnScoreActionAsyncFilter : IAsyncActionFilter
         {
             public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
             {

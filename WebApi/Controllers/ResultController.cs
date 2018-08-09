@@ -3,6 +3,7 @@ using BusinessLogicLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DataTransferObjects.Creating;
+using WebApi.Filters.Action;
 using WebApi.Filters.Authorization;
 using WebApi.Helpers;
 
@@ -26,11 +27,12 @@ namespace WebApi.Controllers
 
         [HttpPost("new")]
         [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
-        [UserSendsOnlyOwnScoreResourceAsyncFilter]
+        [UserSendsOnlyOwnScoreActionAsyncFilter]
         public async Task<IActionResult> CreateResultAsync([FromBody] ResultCreatingDto resultDto) => Ok(await _resultService.CreateAsync(resultDto));
-            
+
         [HttpGet]
         [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
-        public async Task<IActionResult> GetResultsByUserIdAndGameIdAsync(int userId, int gameId) => Ok(await _resultService.GetResultsByUserIdAndGameIdAsync(userId, gameId));
+        public async Task<IActionResult> GetResultsByUserIdAndGameIdAsync(int userId, int gameId) =>
+            Ok(await _resultService.GetResultsByUserIdAndGameIdAsync(userId, gameId));
     }
 }
