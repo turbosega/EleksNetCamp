@@ -3,6 +3,7 @@ using BusinessLogicLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DataTransferObjects.Creating;
+using WebApi.Filters.Authorization;
 using WebApi.Helpers;
 
 namespace WebApi.Controllers
@@ -25,6 +26,7 @@ namespace WebApi.Controllers
 
         [HttpPost("new")]
         [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
+        [UserSendsOnlyOwnScoreResourceAsyncFilter]
         public async Task<IActionResult> CreateResultAsync([FromBody] ResultCreatingDto resultDto) => Ok(await _resultService.CreateAsync(resultDto));
             
         [HttpGet]
