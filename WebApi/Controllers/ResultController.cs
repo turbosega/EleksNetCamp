@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DataTransferObjects.Creating;
 using WebApi.Filters.Action;
-using WebApi.Filters.Authorization;
 using WebApi.Helpers;
 
 namespace WebApi.Controllers
