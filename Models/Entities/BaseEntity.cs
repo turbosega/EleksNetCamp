@@ -1,7 +1,7 @@
 ﻿namespace Models.Entities
 {
-    public abstract class BaseEntity
+    public abstract class BaseEntity<TKey>
     {
-        public int Id { get; set; }
+        public TKey Id { get; set; }
     }
 }

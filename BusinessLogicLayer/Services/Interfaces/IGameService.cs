@@ -5,8 +5,9 @@ using Models.DataTransferObjects.Creating;
 
 namespace BusinessLogicLayer.Services.Interfaces
 {
-    public interface IGameService : IService<GameDto, GameCreatingDto>
+    public interface IGameService : IService<GameDto, GameCreatingDto, int>
     {
-        Task<IEnumerable<(UserDto user, double rating)>> GetRatingsByGameIdAsync(int gameId);
+        // using tuples just because of curiosity, it's not the best way
+        Task<IEnumerable<(UserDto user, double rating)>> GetUsersWithRatingsByGameIdAsync(int gameId);
     }
 }

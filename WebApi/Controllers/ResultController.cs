@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DataTransferObjects.Creating;
 using WebApi.Filters.Action;
-using WebApi.Helpers;
+using static WebApi.Helpers.ApiStringConstants;
 
 namespace WebApi.Controllers
 {
-    [Route(ApiStringConstants.StandartControllerRoute)]
+    [Route(StandartControllerRoute)]
     [ApiController]
     public class ResultController : ControllerBase
     {
@@ -17,21 +17,23 @@ namespace WebApi.Controllers
         public ResultController(IResultService resultService) => _resultService = resultService;
 
         [HttpGet("{id}")]
-        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
+        [Authorize(Policy = AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetResultByIdAsync(int id) => Ok(await _resultService.GetByIdAsync(id));
 
         [HttpGet("all")]
-        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
+        [Authorize(Policy = AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetAllResultsAsync() => Ok(await _resultService.GetAllAsync());
 
         [HttpPost("new")]
-        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
+        [Authorize(Policy = AuthenticatedOnlyPolicy)]
         [UserSendsOnlyOwnScoreActionAsyncFilter]
         public async Task<IActionResult> CreateResultAsync([FromBody] ResultCreatingDto resultDto) => Ok(await _resultService.CreateAsync(resultDto));
 
         [HttpGet]
-        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
-        public async Task<IActionResult> GetResultsByUserIdAndGameIdAsync(int userId, int gameId) =>
-            Ok(await _resultService.GetResultsByUserIdAndGameIdAsync(userId, gameId));
+        [Authorize(Policy = AuthenticatedOnlyPolicy)]
+        public async Task<IActionResult> GetResultsByRelatedKeysAsync([FromQuery] int gameId, [FromQuery] int? nullableUserId = null) =>
+            nullableUserId.HasValue && nullableUserId is int userId
+                ? Ok(await _resultService.GetResultsByUserIdAndGameIdAsync(userId, gameId))
+                : Ok(await _resultService.GetResultsByGameIdAsync(gameId));
     }
 }

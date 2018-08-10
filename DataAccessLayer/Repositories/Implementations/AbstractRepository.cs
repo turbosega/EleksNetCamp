@@ -9,13 +9,13 @@ using Models.Entities;
 
 namespace DataAccessLayer.Repositories.Implementations
 {
-    public abstract class AbstractRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
+    public abstract class AbstractRepository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
         protected readonly AppDbContext Db;
 
         protected AbstractRepository(AppDbContext dbContext) => Db = dbContext;
 
-        public async Task<TEntity> GetByIdAsync(int id) => await Db.Set<TEntity>().FindAsync(id);
+        public async Task<TEntity> GetByIdAsync(TKey id) => await Db.Set<TEntity>().FindAsync(id);
 
         public async Task<IEnumerable<TEntity>> GetAllAsync() => await Db.Set<TEntity>().ToListAsync();
 

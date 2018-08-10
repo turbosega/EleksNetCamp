@@ -3,7 +3,7 @@ using Models.Entities;
 
 namespace DataAccessLayer.Repositories.Interfaces
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IRepository<User, int>
     {
         Task<User> GetByLoginAsync(string providedLogin);
     }

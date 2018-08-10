@@ -5,8 +5,10 @@ using Models.DataTransferObjects.Creating;
 
 namespace BusinessLogicLayer.Services.Interfaces
 {
-    public interface IResultService : IService<ResultDto, ResultCreatingDto>
+    public interface IResultService : IService<ResultDto, ResultCreatingDto, int>
     {
+        Task<IEnumerable<ResultDto>> GetResultsByGameIdAsync(int gameId);
+
         Task<IEnumerable<ResultDto>> GetResultsByUserIdAndGameIdAsync(int userId, int gameId);
     }
 }

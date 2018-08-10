@@ -32,6 +32,7 @@ namespace WebApi.Helpers
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddTransient<IUserAndGameVerificator, UserAndGameVerificator>();
             services.AddTransient<IImageUploader, CloudinaryImageUploader>();
+            services.AddTransient<IRatingCalculator, RatingCalculator>();
         }
 
         public static void ConfigureAuthorization(this IServiceCollection services)

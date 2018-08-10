@@ -6,9 +6,10 @@ using Models.Entities;
 
 namespace DataAccessLayer.Repositories.Interfaces
 {
-    public interface IRepository<TEntity> where TEntity : BaseEntity
+    // TODO: someday in future use Specification 
+    public interface IRepository<TEntity, in TKey> where TEntity : BaseEntity<TKey>
     {
-        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity> GetByIdAsync(TKey id);
 
         Task<IEnumerable<TEntity>> GetAllAsync();
 

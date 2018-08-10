@@ -3,11 +3,11 @@ using BusinessLogicLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DataTransferObjects.Creating;
-using WebApi.Helpers;
+using static WebApi.Helpers.ApiStringConstants;
 
 namespace WebApi.Controllers
 {
-    [Route(ApiStringConstants.StandartControllerRoute)]
+    [Route(StandartControllerRoute)]
     [ApiController]
     public class GameController : ControllerBase
     {
@@ -16,19 +16,19 @@ namespace WebApi.Controllers
         public GameController(IGameService gameService) => _gameService = gameService;
 
         [HttpGet("{id}")]
-        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
+        [Authorize(Policy = AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetGameByIdAsync(int id) => Ok(await _gameService.GetByIdAsync(id));
 
         [HttpGet("all")]
-        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
+        [Authorize(Policy = AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetAllGamesAsync() => Ok(await _gameService.GetAllAsync());
 
         [HttpPost("new")]
-        //[Authorize(Policy = ApiStringConstants.AdministratorsOnlyPolicy)]
+        [Authorize(Policy = AdministratorsOnlyPolicy)]
         public async Task<IActionResult> CreateGameAsync([FromBody] GameCreatingDto gameDto) => Ok(await _gameService.CreateAsync(gameDto));
 
-        [HttpGet("{id}/ratings")]
-        //[Authorize(Policy = ApiStringConstants.AdministratorsOnlyPolicy)]
-        public async Task<IActionResult> GetRatingsByGameIdAsync(int id) => Ok(await _gameService.GetRatingsByGameIdAsync(id));
+        [HttpGet("{id}/rating")]
+        [Authorize(Policy = AuthenticatedOnlyPolicy)]
+        public async Task<IActionResult> GetUsersWithRatingsByGameIdAsync(int id) => Ok(await _gameService.GetUsersWithRatingsByGameIdAsync(id));
     }
 }

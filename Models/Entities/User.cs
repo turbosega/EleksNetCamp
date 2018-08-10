@@ -3,7 +3,7 @@ using Models.Enumerations;
 
 namespace Models.Entities
 {
-    public class User : BaseEntity
+    public class User : BaseEntity<int>
     {
         public string Login     { get; set; }
         public string AvatarUrl { get; set; }

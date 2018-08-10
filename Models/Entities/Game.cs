@@ -2,7 +2,7 @@
 
 namespace Models.Entities
 {
-    public class Game : BaseEntity
+    public class Game : BaseEntity<int>
     {
         public string Title    { get; set; }
         public string About    { get; set; }

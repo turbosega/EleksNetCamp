@@ -3,13 +3,12 @@ using BusinessLogicLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DataTransferObjects.Creating;
-using WebApi.Helpers;
+using static WebApi.Helpers.ApiStringConstants;
 
 namespace WebApi.Controllers
 {
-    [Route(ApiStringConstants.StandartControllerRoute)]
+    [Route(StandartControllerRoute)]
     [ApiController]
-    [AllowAnonymous]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
@@ -17,7 +16,8 @@ namespace WebApi.Controllers
         public AuthController(IAuthService authService) => _authService = authService;
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] UserAuthDto authDto)
+        [AllowAnonymous]
+        public async Task<IActionResult> AuthenticateAsync([FromBody] UserAuthDto authDto)
         {
             var token = await _authService.AuthenticateAsync(authDto);
             return Ok(new

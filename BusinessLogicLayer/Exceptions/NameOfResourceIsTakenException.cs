@@ -6,12 +6,10 @@ namespace BusinessLogicLayer.Exceptions
     {
         public NameOfResourceIsTakenException() : base()
         {
-
         }
 
         public NameOfResourceIsTakenException(string message) : base(message)
         {
-
         }
     }
 }

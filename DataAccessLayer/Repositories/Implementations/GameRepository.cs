@@ -7,7 +7,7 @@ using Models.Entities;
 
 namespace DataAccessLayer.Repositories.Implementations
 {
-    public class GameRepository : AbstractRepository<Game>, IGameRepository
+    public class GameRepository : AbstractRepository<Game, int>, IGameRepository
     {
         public GameRepository(AppDbContext dbContext) : base(dbContext)
         {

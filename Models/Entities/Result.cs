@@ -1,6 +1,6 @@
 ﻿namespace Models.Entities
 {
-    public class Result : BaseEntity
+    public class Result : BaseEntity<int>
     {
         public int Score { get; set; }
 

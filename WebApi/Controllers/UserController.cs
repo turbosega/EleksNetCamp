@@ -3,11 +3,11 @@ using BusinessLogicLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DataTransferObjects.Creating;
-using WebApi.Helpers;
+using static WebApi.Helpers.ApiStringConstants;
 
 namespace WebApi.Controllers
 {
-    [Route(ApiStringConstants.StandartControllerRoute)]
+    [Route(StandartControllerRoute)]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -16,11 +16,11 @@ namespace WebApi.Controllers
         public UserController(IUserService userService) => _userService = userService;
 
         [HttpGet("{id}")]
-        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
+        [Authorize(Policy = AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetUserByIdAsync(int id) => Ok(await _userService.GetByIdAsync(id));
 
         [HttpGet("all")]
-        [Authorize(Policy = ApiStringConstants.AuthenticatedOnlyPolicy)]
+        [Authorize(Policy = AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetAllUsersAsync() => Ok(await _userService.GetAllAsync());
 
         [HttpPost("rgstr")]

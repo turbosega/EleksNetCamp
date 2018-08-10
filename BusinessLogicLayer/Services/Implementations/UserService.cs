@@ -13,15 +13,15 @@ namespace BusinessLogicLayer.Services.Implementations
 {
     public class UserService : IUserService
     {
-        private readonly IMapper        _mapper;
-        private readonly IUnitOfWork    _unitOfWork;
-        private readonly IImageUploader _imageUploader;
+        private readonly IMapper           _mapper;
+        private readonly IUnitOfWork       _unitOfWork;
+        private readonly IImageUploader    _imageUploader;
 
         public UserService(IMapper mapper, IUnitOfWork unitOfWork, IImageUploader imageUploader)
         {
-            _mapper        = mapper;
-            _unitOfWork    = unitOfWork;
-            _imageUploader = imageUploader;
+            _mapper           = mapper;
+            _unitOfWork       = unitOfWork;
+            _imageUploader    = imageUploader;
         }
 
         public async Task<UserDto> GetByIdAsync(int id) => _mapper.Map<UserDto>(await _unitOfWork.Users.GetByIdAsync(id)) ??

@@ -7,7 +7,7 @@ using Models.Entities;
 
 namespace DataAccessLayer.Repositories.Implementations
 {
-    public class UserRepository : AbstractRepository<User>, IUserRepository
+    public class UserRepository : AbstractRepository<User, int>, IUserRepository
     {
         public UserRepository(AppDbContext dbContext) : base(dbContext)
         {
