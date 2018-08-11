@@ -3,11 +3,14 @@ using BusinessLogicLayer.Exceptions;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using NLog;
 
 namespace WebApi.Filters.Exception
 {
     public class AsyncExceptionFilter : IAsyncExceptionFilter
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public async Task OnExceptionAsync(ExceptionContext context)
         {
             var exception = context.Exception;
@@ -35,6 +38,8 @@ namespace WebApi.Filters.Exception
                         break;
                 }
 
+                Logger.Error(exception, exception.Message);
+                LogManager.Shutdown();
                 context.ExceptionHandled = true;
             }
         }

@@ -8,8 +8,14 @@ namespace Models.Entities
         public string About    { get; set; }
         public string ImageSrc { get; set; }
 
-        public virtual IEnumerable<Result> Results { get; set; }
+        private IEnumerable<Result> _results;
 
-        public Game() => Results = new List<Result>();
+        public virtual IEnumerable<Result> Results
+        {
+            get => _results;
+            set => _results = value;
+        }
+
+        public Game() => _results = new List<Result>();
     }
 }

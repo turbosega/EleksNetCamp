@@ -12,8 +12,14 @@ namespace Models.Entities
 
         public UserType UserType { get; set; } = UserType.RegularUser;
 
-        public virtual IEnumerable<Result> Results { get; set; }
+        private IEnumerable<Result> _results;
 
-        public User() => Results = new List<Result>();
+        public virtual IEnumerable<Result> Results
+        {
+            get => _results;
+            set => _results = value;
+        }
+
+        public User() => _results = new List<Result>();
     }
 }

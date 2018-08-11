@@ -62,10 +62,5 @@ namespace WebApi.Helpers
                     .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
-
-        public static void ConfigureAuthentication(this IServiceCollection services)
-        {
-            //TODO: Figure out how to inject necessary settings here
-        }
     }
 }
