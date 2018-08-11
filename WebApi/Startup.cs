@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using AutoMapper;
 using BusinessLogicLayer.Utilities.Settings;
@@ -22,12 +23,14 @@ namespace WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies()
+                                                                  //.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseInMemoryDatabase());
             services.Configure<JwtSettings>(Configuration.GetSection("JWT"));
             services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
             services.InjectDependencies();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            services.AddAuthentication(options => options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                      {
                          options.SaveToken            = true;
@@ -44,7 +47,8 @@ namespace WebApi
                              RequireExpirationTime    = true,
                              ValidateIssuerSigningKey = true,
                              ClockSkew                = TimeSpan.FromMinutes(5),
-                             IssuerSigningKey         = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"]))
+                             IssuerSigningKey         = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"])),
+                             RoleClaimType            = "role"
                          };
                      });
             services.ConfigureAuthorization();

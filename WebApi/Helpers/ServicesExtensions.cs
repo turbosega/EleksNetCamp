@@ -40,7 +40,7 @@ namespace WebApi.Helpers
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("AuthenticatedOnly", policy => policy.RequireAuthenticatedUser());
-                options.AddPolicy("AdministratorsOnly", policy => policy.RequireClaim(Constants.Role, "admin"));
+                options.AddPolicy("AdministratorsOnly", policy => policy.RequireClaim("role", "admin"));
             });
         }
 

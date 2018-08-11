@@ -4,7 +4,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using BusinessLogicLayer.Exceptions;
 using BusinessLogicLayer.Services.Interfaces;
-using BusinessLogicLayer.Utilities;
 using BusinessLogicLayer.Utilities.Settings;
 using DataAccessLayer.UnitsOfWork.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -46,22 +45,18 @@ namespace BusinessLogicLayer.Services.Implementations
             _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, rawPassword) != PasswordVerificationResult.Failed;
 
         private string BuildToken(User user)
-        {
-            var claims = new[]
-            {
-                new Claim("id", user.Id.ToString()),
-                new Claim("login", user.Login),
-                new Claim(Constants.Role, user.UserType == UserType.Administrator ? "admin" : "regular")
-            };
-
-            var token = new JwtSecurityToken(issuer: _jwtSettings.Issuer,
-                                             audience: _jwtSettings.Audience,
-                                             claims: claims,
-                                             notBefore: DateTime.Now,
-                                             expires: DateTime.Now.AddHours(24),
-                                             signingCredentials: _jwtSettings.SigningCredentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+            => new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken(issuer: _jwtSettings.Issuer,
+                                                                             audience: _jwtSettings.Audience,
+                                                                             notBefore: DateTime.Now,
+                                                                             expires: DateTime.Now.AddHours(24),
+                                                                             signingCredentials: _jwtSettings.SigningCredentials,
+                                                                             claims: new[]
+                                                                             {
+                                                                                 new Claim("id", user.Id.ToString()),
+                                                                                 new Claim("login", user.Login),
+                                                                                 new Claim("role", user.UserType == UserType.Administrator
+                                                                                                       ? "admin"
+                                                                                                       : "regular")
+                                                                             }));
     }
 }

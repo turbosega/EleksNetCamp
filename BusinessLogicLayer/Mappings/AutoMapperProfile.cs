@@ -11,7 +11,8 @@ namespace BusinessLogicLayer.Mappings
         public AutoMapperProfile()
         {
             CreateMap<UserRegistrationDto, User>().ForMember(user => user.Login, dto => dto.MapFrom(from => from.Login))
-                                                  .ForMember(user => user.PasswordHash, dto => dto.ResolveUsing<PasswordToHashResolver>());
+                                                  .ForMember(user => user.PasswordHash, dto => dto.ResolveUsing<PasswordToHashResolver>())
+                                                  .ForMember(user => user.AvatarUrl, dto => dto.ResolveUsing<FormImageToUrlResolver>());
 
             CreateMap<User, UserDto>().ForMember(dto => dto.Id, user => user.MapFrom(from => from.Id))
                                       .ForMember(dto => dto.Login, dto => dto.MapFrom(from => from.Login))

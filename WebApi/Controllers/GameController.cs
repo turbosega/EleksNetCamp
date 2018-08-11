@@ -28,7 +28,7 @@ namespace WebApi.Controllers
         public async Task<IActionResult> CreateGameAsync([FromBody] GameCreatingDto gameDto) => Ok(await _gameService.CreateAsync(gameDto));
 
         [HttpGet("{id}/rating")]
-        [Authorize(Policy = AuthenticatedOnlyPolicy)]
+        [Authorize(Policy = AdministratorsOnlyPolicy)]
         public async Task<IActionResult> GetUsersWithRatingsByGameIdAsync(int id) => Ok(await _gameService.GetUsersWithRatingsByGameIdAsync(id));
     }
 }

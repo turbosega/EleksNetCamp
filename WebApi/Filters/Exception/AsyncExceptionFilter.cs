@@ -39,7 +39,6 @@ namespace WebApi.Filters.Exception
                 }
 
                 Logger.Error(exception, exception.Message);
-                LogManager.Shutdown();
                 context.ExceptionHandled = true;
             }
         }

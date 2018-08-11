@@ -13,15 +13,13 @@ namespace BusinessLogicLayer.Services.Implementations
 {
     public class UserService : IUserService
     {
-        private readonly IMapper           _mapper;
-        private readonly IUnitOfWork       _unitOfWork;
-        private readonly IImageUploader    _imageUploader;
+        private readonly IMapper     _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(IMapper mapper, IUnitOfWork unitOfWork, IImageUploader imageUploader)
+        public UserService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _mapper           = mapper;
-            _unitOfWork       = unitOfWork;
-            _imageUploader    = imageUploader;
+            _mapper     = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<UserDto> GetByIdAsync(int id) => _mapper.Map<UserDto>(await _unitOfWork.Users.GetByIdAsync(id)) ??
@@ -37,7 +35,6 @@ namespace BusinessLogicLayer.Services.Implementations
             }
 
             var userForSaving = _mapper.Map<User>(userDto);
-            userForSaving.AvatarUrl = _imageUploader.UploadImageFromForm(userDto.Avatar);
             await _unitOfWork.Users.CreateAsync(userForSaving);
             await _unitOfWork.SaveChangesAsync();
             return _mapper.Map<UserDto>(userForSaving);
