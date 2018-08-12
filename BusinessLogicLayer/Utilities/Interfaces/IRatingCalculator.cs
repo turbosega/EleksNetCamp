@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Models.DataTransferObjects;
 
-namespace BusinessLogicLayer.Utilities
+namespace BusinessLogicLayer.Utilities.Interfaces
 {
     public interface IRatingCalculator
     {

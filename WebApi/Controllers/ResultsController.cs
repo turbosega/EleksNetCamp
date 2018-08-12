@@ -10,11 +10,11 @@ namespace WebApi.Controllers
 {
     [Route(StandartControllerRoute)]
     [ApiController]
-    public class ResultController : ControllerBase
+    public class ResultsController : ControllerBase
     {
         private readonly IResultService _resultService;
 
-        public ResultController(IResultService resultService) => _resultService = resultService;
+        public ResultsController(IResultService resultService) => _resultService = resultService;
 
         [HttpGet("{id}")]
         [Authorize(Policy = AuthenticatedOnlyPolicy)]
@@ -24,16 +24,16 @@ namespace WebApi.Controllers
         [Authorize(Policy = AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetAllResultsAsync() => Ok(await _resultService.GetAllAsync());
 
-        [HttpPost("new")]
+        [HttpPost]
         [Authorize(Policy = AuthenticatedOnlyPolicy)]
         [UserSendsOnlyOwnScoreActionAsyncFilter]
         public async Task<IActionResult> CreateResultAsync([FromBody] ResultCreatingDto resultDto) => Ok(await _resultService.CreateAsync(resultDto));
 
         [HttpGet]
         [Authorize(Policy = AuthenticatedOnlyPolicy)]
-        public async Task<IActionResult> GetResultsByRelatedKeysAsync([FromQuery] int gameId, [FromQuery] int? nullableUserId = null) =>
-            nullableUserId.HasValue && nullableUserId is int userId
-                ? Ok(await _resultService.GetResultsByUserIdAndGameIdAsync(userId, gameId))
+        public async Task<IActionResult> GetResultsByRelatedKeysAsync([FromQuery] int gameId, [FromQuery] int? userId = null) =>
+            userId.HasValue && userId is int uId
+                ? Ok(await _resultService.GetResultsByUserIdAndGameIdAsync(uId, gameId))
                 : Ok(await _resultService.GetResultsByGameIdAsync(gameId));
     }
 }

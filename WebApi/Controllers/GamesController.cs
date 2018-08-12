@@ -9,21 +9,21 @@ namespace WebApi.Controllers
 {
     [Route(StandartControllerRoute)]
     [ApiController]
-    public class GameController : ControllerBase
+    public class GamesController : ControllerBase
     {
         private readonly IGameService _gameService;
 
-        public GameController(IGameService gameService) => _gameService = gameService;
+        public GamesController(IGameService gameService) => _gameService = gameService;
 
         [HttpGet("{id}")]
         [Authorize(Policy = AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetGameByIdAsync(int id) => Ok(await _gameService.GetByIdAsync(id));
 
-        [HttpGet("all")]
+        [HttpGet]
         [Authorize(Policy = AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetAllGamesAsync() => Ok(await _gameService.GetAllAsync());
 
-        [HttpPost("new")]
+        [HttpPost]
         [Authorize(Policy = AdministratorsOnlyPolicy)]
         public async Task<IActionResult> CreateGameAsync([FromBody] GameCreatingDto gameDto) => Ok(await _gameService.CreateAsync(gameDto));
 

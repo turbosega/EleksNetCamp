@@ -14,6 +14,6 @@ namespace DataAccessLayer.Repositories.Implementations
         }
 
         public async Task<User> GetByLoginAsync(string providedLogin) =>
-            await Db.Users.AsQueryable().SingleOrDefaultAsync(user => user.Login == providedLogin);
+            await Db.Users.AsQueryable().SingleOrDefaultAsync(user => string.Equals(user.Login, providedLogin, StringComparison.OrdinalIgnoreCase));
     }
 }

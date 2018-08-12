@@ -1,8 +1,7 @@
-﻿using BusinessLogicLayer.Patterns.Structural.Implementations.Facades;
-using BusinessLogicLayer.Patterns.Structural.Interfaces.Facades;
-using BusinessLogicLayer.Services.Implementations;
+﻿using BusinessLogicLayer.Services.Implementations;
 using BusinessLogicLayer.Services.Interfaces;
-using BusinessLogicLayer.Utilities;
+using BusinessLogicLayer.Utilities.Implementations;
+using BusinessLogicLayer.Utilities.Interfaces;
 using DataAccessLayer.Repositories.Implementations;
 using DataAccessLayer.Repositories.Interfaces;
 using DataAccessLayer.UnitsOfWork.Implementations;

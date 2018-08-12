@@ -33,7 +33,7 @@ namespace BusinessLogicLayer.Services.Implementations
         private async Task<User> GetUserIfCorrectCredentialsAsync(string providedLogin, string providedPassword)
         {
             var user = await _unitOfWork.Users.GetByLoginAsync(providedLogin);
-            if (user == null || !DoesPasswordMatchWithHash(user, providedPassword))
+            if (user == null || user.Login != providedLogin || !DoesPasswordMatchWithHash(user, providedPassword))
             {
                 throw new BadCredentialsException($"Wrong login: {providedLogin} and/or password: {providedPassword}");
             }
@@ -44,19 +44,19 @@ namespace BusinessLogicLayer.Services.Implementations
         private bool DoesPasswordMatchWithHash(User user, string rawPassword) =>
             _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, rawPassword) != PasswordVerificationResult.Failed;
 
-        private string BuildToken(User user)
-            => new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken(issuer: _jwtSettings.Issuer,
-                                                                             audience: _jwtSettings.Audience,
-                                                                             notBefore: DateTime.Now,
-                                                                             expires: DateTime.Now.AddHours(24),
-                                                                             signingCredentials: _jwtSettings.SigningCredentials,
-                                                                             claims: new[]
-                                                                             {
-                                                                                 new Claim("id", user.Id.ToString()),
-                                                                                 new Claim("login", user.Login),
-                                                                                 new Claim("role", user.UserType == UserType.Administrator
-                                                                                                       ? "admin"
-                                                                                                       : "regular")
-                                                                             }));
+        private string BuildToken(User user) =>
+            new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken(issuer: _jwtSettings.Issuer,
+                                                                          audience: _jwtSettings.Audience,
+                                                                          notBefore: DateTime.Now,
+                                                                          expires: DateTime.Now.AddHours(24),
+                                                                          signingCredentials: _jwtSettings.SigningCredentials,
+                                                                          claims: new[]
+                                                                          {
+                                                                              new Claim("id", user.Id.ToString()),
+                                                                              new Claim("login", user.Login),
+                                                                              new Claim("role", user.UserType == UserType.Administrator
+                                                                                                    ? "admin"
+                                                                                                    : "regular")
+                                                                          }));
     }
 }

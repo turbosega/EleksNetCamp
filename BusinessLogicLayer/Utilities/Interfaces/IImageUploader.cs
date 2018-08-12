@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace BusinessLogicLayer.Utilities
+namespace BusinessLogicLayer.Utilities.Interfaces
 {
     public interface IImageUploader
     {

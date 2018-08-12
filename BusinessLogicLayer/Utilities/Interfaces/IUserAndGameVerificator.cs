@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace BusinessLogicLayer.Patterns.Structural.Interfaces.Facades
+namespace BusinessLogicLayer.Utilities.Interfaces
 {
     public interface IUserAndGameVerificator
     {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BusinessLogicLayer.Utilities;
+using BusinessLogicLayer.Utilities.Interfaces;
 using Models.DataTransferObjects.Creating;
 using Models.Entities;
 

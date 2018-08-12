@@ -9,21 +9,21 @@ namespace WebApi.Controllers
 {
     [Route(StandartControllerRoute)]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService) => _userService = userService;
+        public UsersController(IUserService userService) => _userService = userService;
 
         [HttpGet("{id}")]
         [Authorize(Policy = AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetUserByIdAsync(int id) => Ok(await _userService.GetByIdAsync(id));
 
-        [HttpGet("all")]
+        [HttpGet]
         [Authorize(Policy = AuthenticatedOnlyPolicy)]
         public async Task<IActionResult> GetAllUsersAsync() => Ok(await _userService.GetAllAsync());
 
-        [HttpPost("rgstr")]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> CreateUserAsync([FromForm] UserRegistrationDto userDto) => Ok(await _userService.CreateAsync(userDto));
     }

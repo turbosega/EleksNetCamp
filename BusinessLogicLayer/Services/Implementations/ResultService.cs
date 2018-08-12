@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogicLayer.Exceptions;
-using BusinessLogicLayer.Patterns.Structural.Interfaces.Facades;
 using BusinessLogicLayer.Services.Interfaces;
+using BusinessLogicLayer.Utilities.Interfaces;
 using DataAccessLayer.UnitsOfWork.Interfaces;
 using Models.DataTransferObjects;
 using Models.DataTransferObjects.Creating;

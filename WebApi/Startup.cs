@@ -23,9 +23,8 @@ namespace WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies()
-                                                                  //.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseInMemoryDatabase());
+            services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies()
+                                                                  .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.Configure<JwtSettings>(Configuration.GetSection("JWT"));
             services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
             services.InjectDependencies();

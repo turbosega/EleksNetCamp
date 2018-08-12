@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using BusinessLogicLayer.Patterns.Structural.Interfaces.Facades;
 using BusinessLogicLayer.Services.Interfaces;
+using BusinessLogicLayer.Utilities.Interfaces;
 
-namespace BusinessLogicLayer.Patterns.Structural.Implementations.Facades
+namespace BusinessLogicLayer.Utilities.Implementations
 {
     public class UserAndGameVerificator : IUserAndGameVerificator
     {

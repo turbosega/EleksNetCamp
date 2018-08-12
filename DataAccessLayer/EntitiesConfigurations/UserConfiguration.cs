@@ -30,24 +30,6 @@ namespace DataAccessLayer.EntitiesConfigurations
             user.HasMany(u => u.Results)
                 .WithOne(result => result.User)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            user.HasData(new User
-                         {
-                             Id           = 1,
-                             Login        = "Fry",
-                             AvatarUrl    = "https://res.cloudinary.com/stnsfld/image/upload/v1533657580/gghsflish4e1jr43q2yd.png",
-                             PasswordHash = "AQAAAAEAACcQAAAAEAyTA6a5i6/Ns6VkkhDgh345S9gj+aYUPTmJRBO2TJzQdMOxJApGpWn9k6XL5+VtfA==",
-                             UserType     = UserType.Administrator
-                         },
-                         new User
-                         {
-                             Id           = 2,
-                             Login        = "Rick",
-                             AvatarUrl    = "https://res.cloudinary.com/stnsfld/image/upload/v1534010654/RickAndMorty_RickHappy1500.png",
-                             PasswordHash = "AQAAAAEAACcQAAAAEAyTA6a5i6/Ns6VkkhDgh345S9gj+aYUPTmJRBO2TJzQdMOxJApGpWn9k6XL5+VtfA==",
-                             UserType     = UserType.Administrator
-                         }
-                        );
         }
     }
 }

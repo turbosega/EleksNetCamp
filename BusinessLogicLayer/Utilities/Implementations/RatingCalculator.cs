@@ -2,11 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BusinessLogicLayer.Utilities.Interfaces;
 using DataAccessLayer.UnitsOfWork.Interfaces;
 using Models.DataTransferObjects;
 using Models.Entities;
 
-namespace BusinessLogicLayer.Utilities
+namespace BusinessLogicLayer.Utilities.Implementations
 {
     public class RatingCalculator : IRatingCalculator
     {
