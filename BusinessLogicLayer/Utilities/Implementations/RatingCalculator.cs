@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -20,18 +21,6 @@ namespace BusinessLogicLayer.Utilities.Implementations
             _unitOfWork = unitOfWork;
         }
 
-        /*
-         * How it works:
-         * rating = (V / (V + M)) * R + (M / (V + M)) * C
-         * where:
-         * V = amount of user results per game
-         * M = minimum amount of results to take part
-         * R = arithmetic mean from users who take part in rating (who have M and more results per game)
-         * C = common arithmetic mean of results per game (calculated by getting average number of all results)
-         *
-         * calculating is in CalculateRatingsForParticipants method
-         * enjoy ^^
-         */
         public async Task<IEnumerable<(UserDto user, double ratingScore)>> GetUsersWithRatingsByGameIdAsync(
             int gameId, double minimumAmountOfResultsToTakePart)
         {
@@ -43,16 +32,13 @@ namespace BusinessLogicLayer.Utilities.Implementations
                 return Enumerable.Empty<(UserDto, double)>();
             }
 
-            var game                 = await gameTask;
-            var commonArithmeticMean = GetCommonArithmeticMeanByGame(game);
-
-            var arithmeticMeanFromParticipants = GetArithmeticMeanFromParticipants(participantsList);
-
+            var game = await gameTask;
             return CalculateRatingsForParticipants(participantsList,
                                                    gameId,
                                                    minimumAmountOfResultsToTakePart,
-                                                   arithmeticMeanFromParticipants,
-                                                   commonArithmeticMean);
+                                                   GetArithmeticMeanFromParticipants(participantsList),
+                                                   GetCommonArithmeticMeanByGame(game),
+                                                   GetAmountOfUserResultsPerGame);
         }
 
         private async Task<IEnumerable<User>> GetParticipants(int gameId, double minimumAmountOfResultsToTakePart) =>
@@ -65,22 +51,29 @@ namespace BusinessLogicLayer.Utilities.Implementations
                                                                                                         .SelectMany(user => user.Results)
                                                                                                         .Average(result => result.Score);
 
-        // it looks beautiful, i know :D
-        // TODO: refactor someday in future
+        private int GetAmountOfUserResultsPerGame(User user, int gameId) => user.Results.AsQueryable().Count(result => result.GameId == gameId);
+
+        /* How it works:
+         * rating = (v / (v + m)) * r + (m / (v + m)) * c
+         * where:
+         * v = function which calculates amount of user results per game 
+         * m = minimum amount of results to take part
+         * r = arithmetic mean from users who take part in rating(who have M and more results per game)
+         * c = common arithmetic mean of results per game(calculated by getting average number of all results)
+         * TODO: look for better ways of calculating
+         */
         private IEnumerable<(UserDto user, double rating)> CalculateRatingsForParticipants(IEnumerable<User> participantsList,
                                                                                            int gameId,
-                                                                                           double minimumAmountOfResultsToTakePart,
-                                                                                           double arithmeticMeanFromUsersWhoParticipateInRating,
-                                                                                           double commonArithmeticMean) =>
-            participantsList.Select((user, rating) =>
-                                        (_mapper.Map<UserDto>(user),
-                                         user.Results.AsQueryable().Count(result => result.GameId == gameId) /
-                                         (user.Results.AsQueryable().Count(result => result.GameId == gameId) +
-                                          minimumAmountOfResultsToTakePart) *
-                                         arithmeticMeanFromUsersWhoParticipateInRating +
-                                         minimumAmountOfResultsToTakePart /
-                                         (minimumAmountOfResultsToTakePart +
-                                          user.Results.AsQueryable().Count(result => result.GameId == gameId)) *
-                                         commonArithmeticMean));
+                                                                                           double m,
+                                                                                           double r,
+                                                                                           double c,
+                                                                                           Func<User, int, int> v)
+        {
+            v = GetAmountOfUserResultsPerGame;
+            return participantsList.Select((user, rating) =>
+                                               (_mapper.Map<UserDto>(user),
+                                                v(user, gameId) / (v(user, gameId) + m) * r +
+                                                m               / (v(user, gameId) + m) * c));
+        }
     }
 }

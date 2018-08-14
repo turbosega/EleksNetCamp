@@ -27,6 +27,7 @@ namespace WebApi
                                                                   .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.Configure<JwtSettings>(Configuration.GetSection("JWT"));
             services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
+            services.AddMemoryCache();
             services.InjectDependencies();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services.AddAuthentication(options => options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme)
