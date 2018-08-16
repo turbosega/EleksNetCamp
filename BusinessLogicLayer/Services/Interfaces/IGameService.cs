@@ -8,6 +8,6 @@ namespace BusinessLogicLayer.Services.Interfaces
     public interface IGameService : IService<GameDto, GameCreatingDto, int>
     {
         // using tuples just because of curiosity, it's not the best way
-        Task<IEnumerable<(UserDto user, double rating)>> GetUsersWithRatingsByGameIdAsync(int gameId);
+        Task<IEnumerable<UserWithRatingDto>> GetUsersWithRatingsByGameIdAsync(int gameId);
     }
 }

@@ -18,6 +18,14 @@ namespace BusinessLogicLayer.Mappings
                                       .ForMember(dto => dto.Login, dto => dto.MapFrom(from => from.Login))
                                       .ForMember(dto => dto.AvatarUrl, user => user.MapFrom(from => from.AvatarUrl));
 
+            CreateMap<(User user, double ratingScore), UserWithRatingDto>().ForMember(dto => dto.Id, tuple => tuple.MapFrom(from => from.user.Id))
+                                                                           .ForMember(dto => dto.Login,
+                                                                                      tuple => tuple.MapFrom(from => from.user.Login))
+                                                                           .ForMember(dto => dto.AvatarUrl,
+                                                                                      tuple => tuple.MapFrom(from => from.user.AvatarUrl))
+                                                                           .ForMember(dto => dto.RatingScore,
+                                                                                      tuple => tuple.MapFrom(from => from.ratingScore));
+
             CreateMap<GameCreatingDto, Game>().ForMember(game => game.Title, dto => dto.MapFrom(from => from.Title))
                                               .ForMember(game => game.About, dto => dto.MapFrom(from => from.About))
                                               .ForMember(game => game.ImageSrc, dto => dto.MapFrom(from => from.ImageSrc));

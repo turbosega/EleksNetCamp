@@ -6,6 +6,6 @@ namespace BusinessLogicLayer.Utilities.Interfaces
 {
     public interface IRatingCalculator
     {
-        Task<IEnumerable<(UserDto user, double ratingScore)>> GetUsersWithRatingsByGameIdAsync(int gameId, double minimumAmountOfResultsToTakePart);
+        Task<IEnumerable<UserWithRatingDto>> GetUsersWithRatingsByGameIdAsync(int gameId, double minimumAmountOfResultsToTakePart);
     }
 }

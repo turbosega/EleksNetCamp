@@ -18,9 +18,6 @@ namespace WebApi.Filters.Exception
             {
                 switch (exception)
                 {
-                    case LoginIsTakenException e:
-                        context.Result = new ConflictObjectResult(e.Message);
-                        break;
                     case BadCredentialsException e:
                         context.Result = new UnprocessableEntityObjectResult(e.Message);
                         break;

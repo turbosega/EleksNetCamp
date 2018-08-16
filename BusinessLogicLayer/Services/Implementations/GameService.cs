@@ -49,19 +49,21 @@ namespace BusinessLogicLayer.Services.Implementations
             return _mapper.Map<GameDto>(gameForSaving);
         }
 
-        //TODO: separate responsibilities of method
-        public async Task<IEnumerable<(UserDto user, double rating)>> GetUsersWithRatingsByGameIdAsync(int gameId)
+        public async Task<IEnumerable<UserWithRatingDto>> GetUsersWithRatingsByGameIdAsync(int gameId)
         {
-            if (_memoryCache.TryGetValue($"ratings{gameId}", out IEnumerable<(UserDto user, double rating)> ratings))
+            var cacheKey = $"ratings{gameId}";
+            if (_memoryCache.TryGetValue(cacheKey, out IEnumerable<UserWithRatingDto> ratings))
+            {
                 return ratings;
-            ratings = await _ratingCalculator
-                         .GetUsersWithRatingsByGameIdAsync(gameId, 5); // 5 is just for presentation because I won't have a lot of data
-            var usersWithRatings = ratings.ToList();
-            _memoryCache.Set($"ratings{gameId}", usersWithRatings,
-                             new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5))); // just for demonstration purpose
+            }
 
-            return usersWithRatings;
+            ratings = (await _ratingCalculator.GetUsersWithRatingsByGameIdAsync(gameId, 5)).ToList();
+            SetRatingsIntoCache(cacheKey, ratings, 1);
+            return ratings;
         }
+
+        private void SetRatingsIntoCache(string key, IEnumerable<UserWithRatingDto> ratings, int forTimeInMinutes) =>
+            _memoryCache.Set(key, ratings, TimeSpan.FromMinutes(forTimeInMinutes));
 
         private async Task<bool> DoesGameWithThisTitleExist(string providedTitle) => await _unitOfWork.Games.GetByTitleAsync(providedTitle) != null;
     }

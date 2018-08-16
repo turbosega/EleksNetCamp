@@ -30,7 +30,7 @@ namespace BusinessLogicLayer.Services.Implementations
         {
             if (await DoesUserWithThisLoginExist(userDto.Login))
             {
-                throw new LoginIsTakenException($"User with login: {userDto.Login} already exists");
+                throw new NameOfResourceIsTakenException($"User with login: {userDto.Login} already exists");
             }
 
             var userForSaving = _mapper.Map<User>(userDto);
